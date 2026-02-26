@@ -4,13 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Share2, RefreshCw, Copy, Check, ExternalLink, Link as LinkIcon } from 'lucide-react';
+import { Share2, RefreshCw, Copy, Check, ExternalLink, Link as LinkIcon, Info } from 'lucide-react';
 import { generateRandomSlug } from '@/lib/account-utils';
-import { madConfig } from '@/lib/config';
 import { api } from '@/lib/api-client';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShadowsocksCard } from '@/components/ShadowsocksCard';
 import { useNavigate } from 'react-router-dom';
 type FormState = 'idle' | 'submitting' | 'success';
 export function ShareContactPage() {
@@ -34,6 +32,10 @@ export function ShareContactPage() {
     try {
       const data = await api<{ slug: string }>('/api/share', {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           ...formData,
           url: trimmedUrl,
@@ -45,7 +47,7 @@ export function ShareContactPage() {
       toast.success('لینک اشتراک با موفقیت ایجاد شد');
     } catch (err) {
       setState('idle');
-      toast.error('خطا در ایجاد لینک. احتما��اً این نام کوتاه قبلاً گرفته شده است.');
+      toast.error('��طا در ایجاد لینک. احتمالاً ای�� نام کوتاه قبلاً گرفته شده است.');
     }
   };
   const shareUrl = shareResult ? `${window.location.origin}/${shareResult.slug}` : '';
@@ -70,7 +72,7 @@ export function ShareContactPage() {
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک‌گذاری تماس</h1>
+          <h1 className="text-3xl font-black">اشتراک‌گ��اری تماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">
@@ -80,9 +82,9 @@ export function ShareContactPage() {
                 <form onSubmit={handleSubmit}>
                   <CardHeader>
                     <CardTitle>ساخت لینک جدید</CardTitle>
-                    <CardDescription>اطلاعات تماس خود را وارد کنید تا لینک کوتاه ساخته شود.</CardDescription>
+                    <CardDescription>اطلاعات تماس خود را وار�� کنید تا لینک کوتاه ساخته شود.</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-5">
+                  <CardContent className="space-y-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">��ام نمایشی (اختیاری)</Label>
                       <Input
@@ -100,12 +102,15 @@ export function ShareContactPage() {
                           id="slug"
                           dir="ltr"
                           placeholder="my-contact"
+                          pattern="[a-zA-Z0-9-]+"
+                          title="فقط حروف و اعداد"
                           className="h-12 font-mono"
                           value={formData.slug}
                           onChange={e => setFormData(p => ({ ...p, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
                         />
-                        <Button type="button" variant="outline" className="h-12 w-12" size="icon" onClick={handleRandomSlug}>
+                        <Button type="button" variant="outline" className="h-12 px-4 gap-2" onClick={handleRandomSlug}>
                           <RefreshCw className="w-4 h-4" />
+                          تصادفی
                         </Button>
                       </div>
                       <p className="text-[11px] text-muted-foreground font-mono" dir="ltr">
@@ -123,7 +128,15 @@ export function ShareContactPage() {
                         value={formData.url}
                         onChange={e => setFormData(p => ({ ...p, url: e.target.value }))}
                       />
-                      <p className="text-[10px] text-muted-foreground">لینک دعوت را از تنظیمات DeltaChat کپی کنید.</p>
+                      <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-dashed text-xs text-muted-foreground space-y-2">
+                        <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> مراحل دریافت لینک در DeltaChat:</p>
+                        <ol className="list-decimal list-inside space-y-1 pr-1">
+                          <li>وارد بخش تنظیمات (Settings) شوید.</li>
+                          <li>آیکون QR در کنار نام خود را لمس کنید.</li>
+                          <li>گزینه اشتراک (Share) را انتخاب کنید.</li>
+                          <li>گزینه کپی (Copy) را بزنید و در اینجا قرار دهید.</li>
+                        </ol>
+                      </div>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -157,7 +170,7 @@ export function ShareContactPage() {
                 <CardFooter className="flex flex-col sm:flex-row gap-3">
                   <Button className="flex-1 h-12 gap-2" onClick={() => navigate(`/${shareResult?.slug}`)}>
                     <ExternalLink className="w-5 h-5" />
-                    مشاهده صفحه تماس
+                    مشاهده صفحه ��ماس
                   </Button>
                   <Button variant="outline" className="flex-1 h-12" onClick={() => { setState('idle'); setFormData({ name: '', slug: '', url: '' }); }}>
                     ایجاد لینک جدید
@@ -167,11 +180,6 @@ export function ShareContactPage() {
             </motion.div>
           )}
         </AnimatePresence>
-        {madConfig.ssURL && (
-          <div className="pt-4">
-             <ShadowsocksCard url={madConfig.ssURL} />
-          </div>
-        )}
       </div>
     </AppLayout>
   );

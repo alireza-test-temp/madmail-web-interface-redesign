@@ -21,6 +21,6 @@ export const madConfig: MadMailConfig = {
   turnOffTLS: false,
   ssURL: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTo2YjMxM2I0YS02Zjc0LTQ5ZTMtOTBjMi03OTU2ZmYyZTgzM2VAMS4yLjMuNDo4NDQz#MadMailProxy",
   version: "v1.4.2",
-  defaultQuota: "100 MB",
-  retentionDays: 30,
+  defaultQuota: "104857600", // 100 MB in bytes for numeric formatting
+  retentionDays: 20, // Updated from 30 to 20 per client request
 };

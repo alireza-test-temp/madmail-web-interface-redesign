@@ -4,11 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShadowsocksCard } from '@/components/ShadowsocksCard';
 import { madConfig } from '@/lib/config';
 import { Info, Database, Clock, Server, Globe } from 'lucide-react';
+function formatBytes(bytes: string) {
+  const b = parseInt(bytes);
+  if (isNaN(b)) return bytes;
+  if (b === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(b) / Math.log(k));
+  return parseFloat((b / Math.pow(k, i)).toFixed(0)) + ' ' + sizes[i];
+}
 export function InfoPage() {
   const stats = [
     { label: 'دامنه ایمیل', value: madConfig.mailDomain, icon: Globe },
-    { label: 'فضای ذخیره‌سازی', value: madConfig.defaultQuota, icon: Database },
-    { label: 'مدت نگهداری پیام‌ها', value: `${madConfig.retentionDays} روز`, icon: Clock },
+    { label: 'فضای ذخیره‌سازی', value: formatBytes(madConfig.defaultQuota), icon: Database },
+    { label: 'مدت نگهداری پیام‌ها', value: `۲۰ روز`, icon: Clock },
     { label: 'نسخه سرور', value: madConfig.version, icon: Server },
   ];
   return (
@@ -52,12 +61,12 @@ export function InfoPage() {
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-3">
             <p>
-              ما در MadMail به حریم خصوصی شما اهمیت می‌دهیم. تمامی پیام‌ها رمزنگاری شده و تنها توسط شما و گیرنده قابل خواندن ه��تند.
+              ما در MadMail به حریم خصوصی شما اهمیت می‌دهیم. تمامی پیام‌ها رمزنگاری شده و تنها توسط شما و گیرنده قابل خوا��دن هستند.
             </p>
             <ul className="list-disc list-inside space-y-1">
-              <li>حذف خودکار پیام‌ها پس از ۳۰ روز.</li>
+              <li>حذف خودکار ��یام‌ها پس از ۲۰ روز.</li>
               <li>عدم ذخیره‌سازی آی‌پی کاربران در لاگ‌های سیستمی.</li>
-              <li>امکان غیرفعال‌سازی آنی حساب کاربری توسط کاربر.</li>
+              <li>امکان غیرفعال‌سازی آنی ح��اب کاربری توسط کاربر.</li>
             </ul>
           </CardContent>
         </Card>

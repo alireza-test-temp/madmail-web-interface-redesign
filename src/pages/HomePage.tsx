@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,7 +26,7 @@ export function HomePage() {
         const email = formatEmail(user, madConfig.mailDomain);
         setCreds({ email, pass });
         setState('success');
-        toast.success('حساب با موفقیت ایجاد شد');
+        toast.success('حساب با م��فقیت ایجاد شد');
       } else {
         const response = await api<Account>('/api/users', {
           method: 'POST',
@@ -39,7 +39,7 @@ export function HomePage() {
     } catch (error) {
       console.error(error);
       setState('error');
-      toast.error('خطا در ایجاد ��ساب کاربری. لطفاً دوباره تلاش کنید.');
+      toast.error('خطا در ایجاد حساب کاربری. لطفاً دوباره تلاش کنید.');
     }
   }, [state]);
   useEffect(() => {
@@ -48,15 +48,24 @@ export function HomePage() {
       handleCreateAccount();
     }
   }, [handleCreateAccount]);
-  const loginLink = creds ? createDcLoginLink({
-    email: creds.email,
-    password: creds.pass,
-    ssl: !madConfig.turnOffTLS
-  }) : '';
+  const loginLink = useMemo(() => {
+    if (!creds) return '';
+    return createDcLoginLink({
+      email: creds.email,
+      password: creds.pass,
+      ssl: !madConfig.turnOffTLS
+    });
+  }, [creds]);
+  const qrCodeSection = useMemo(() => (
+    <QRCodeDisplay
+      value={loginLink}
+      label="این کد را با DeltaChat اسکن کنید"
+    />
+  ), [loginLink]);
   const handleOpenDeltaChat = async () => {
     const success = await tryOpenProtocol(loginLink);
     if (!success) {
-      toast.info('DeltaChat یافت نشد. لطفاً ��بتدا برنامه را نصب کنید.');
+      toast.info('DeltaChat یافت نشد. لطفاً ابتدا برنامه را نصب کنید.');
     }
   };
   return (
@@ -74,7 +83,7 @@ export function HomePage() {
             سرویس پیام‌رسان <span className="text-primary">MadMail</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            یک سرور DeltaChat امن و خصو��ی برای ارتباطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
+            یک سرور DeltaChat امن و خصوصی برای ارتباطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
           </p>
         </header>
         <AnimatePresence mode="wait">
@@ -90,12 +99,12 @@ export function HomePage() {
                 <CardHeader className="pb-4">
                   <CardTitle>ایجاد حساب جدید</CardTitle>
                   <CardDescription>
-                    با کلیک روی دکمه زیر، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
+                    با کلیک روی ��کمه زیر، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button
-                    className="w-full h-14 text-lg font-bold gap-3 shadow-lg hover:shadow-primary/20 transition-all"
+                    className="w-full h-14 text-lg font-bold gap-3 shadow-lg hover:shadow-primary/40 transition-all bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-none"
                     onClick={handleCreateAccount}
                     disabled={!madConfig.registrationOpen}
                   >
@@ -127,7 +136,7 @@ export function HomePage() {
                    <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
                 </div>
               </div>
-              <p className="text-xl font-bold text-primary animate-pulse">در حال پیکرب��دی ایمیل شما...</p>
+              <p className="text-xl font-bold text-primary animate-pulse">در حال پیکربندی ایمیل شما...</p>
             </motion.div>
           )}
           {state === 'success' && creds && (
@@ -137,13 +146,10 @@ export function HomePage() {
               animate={{ opacity: 1, scale: 1 }}
               className="w-full max-w-3xl grid md:grid-cols-2 gap-8 items-start px-4"
             >
-              <QRCodeDisplay
-                value={loginLink}
-                label="این کد را با DeltaChat اسکن کنید"
-              />
+              {qrCodeSection}
               <div className="space-y-6">
                 <Card className="border-primary/20 bg-primary/5 shadow-inner">
-                  <CardContent className="pt-6 space-y-5">
+                  <CardContent className="p-[15px] rounded-[8px] bg-black/5 space-y-5">
                     <div className="flex items-center gap-4">
                       <div className="p-2.5 bg-background rounded-xl border shadow-sm shrink-0">
                         <Mail className="w-6 h-6 text-primary" />
@@ -165,7 +171,7 @@ export function HomePage() {
                   </CardContent>
                 </Card>
                 <div className="flex flex-col gap-3">
-                  <Button className="h-14 text-lg gap-3 shadow-xl" onClick={handleOpenDeltaChat}>
+                  <Button className="h-14 text-lg gap-3 shadow-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-none" onClick={handleOpenDeltaChat}>
                     <ExternalLink className="w-5 h-5" />
                     ورود مستقیم به DeltaChat
                   </Button>

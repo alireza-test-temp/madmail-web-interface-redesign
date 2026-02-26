@@ -1,22 +1,22 @@
 import React from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Lock, EyeOff, ShieldCheck, Zap } from 'lucide-react';
+import { Shield, Lock, EyeOff, ShieldCheck, Zap, ShieldOff } from 'lucide-react';
 import { madConfig } from '@/lib/config';
 import { ShadowsocksCard } from '@/components/ShadowsocksCard';
 import { motion } from 'framer-motion';
 export function SecurityPage() {
   const securityTips = [
-    "همیشه اثر انگشت PGP را با گیرنده به صورت حضور�� یا کانال امن تأیید کنید.",
-    "از پروکسی Shadowsocks برای مخفی کردن ترافیک ��ستفاده کنید.",
+    "همیشه اثر انگشت PGP را با گیرنده به صورت حضوری یا کانال امن تأیید کنید.",
+    "از پروکسی Shadowsocks برای مخفی کردن ترافیک استفاده کنید.",
     "هرگز لینک‌های ناشناخته را بدون بررسی باز نکنید.",
-    "DeltaChat را همیشه به‌روز ن��ه دارید.",
+    "DeltaChat را همیشه ��ه‌روز نگه دارید.",
     "از WiFi عمومی برای ارتباطات حساس اجتناب کنید."
   ];
   const features = [
-    { label: 'رمزنگاری دوطرفه', desc: 'تمامی پیام‌ها با استاندارد Autocrypt رمزنگاری می‌شوند.', icon: Lock },
-    { label: 'بدون ردپا', desc: 'آی‌پی و متادیتای حساس شما در سرور ذخیره نمی‌شود.', icon: EyeOff },
-    { label: 'پروکسی داخلی', desc: 'استفاده از Shadowsocks برای دور زدن فیلترینگ.', icon: Zap },
+    { label: 'رمزنگاری دوطرفه', desc: '��مامی پیام‌ها با استاندارد Autocrypt رمزنگاری می‌شوند.', icon: Lock },
+    { label: 'بدون ردپا', desc: '��ی‌پی و متادیتای حساس شما در سرور ذخیره نمی‌شود.', icon: EyeOff },
+    { label: 'پروکسی داخلی', desc: 'استفاده از Shadowsocks برای دو�� زدن فیلترینگ.', icon: Zap },
   ];
   return (
     <AppLayout>
@@ -31,7 +31,7 @@ export function SecurityPage() {
           </div>
           <h1 className="text-4xl font-black tracking-tight">امنیت و حریم خصوصی</h1>
           <p className="text-muted-foreground text-lg">
-            ارتباطات شما در MadMail تحت ��الاترین استانداردهای امنیتی محافظت می‌شود.
+            ارتباطات شما در MadMail تحت بالاترین استانداردهای امنیتی محافظت می‌شود.
           </p>
         </motion.header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -71,6 +71,17 @@ export function SecurityPage() {
             </ul>
           </CardContent>
         </Card>
+        <Card className="border-2 border-dashed border-muted-foreground/30 bg-muted/5">
+          <CardContent className="pt-6 flex gap-4 items-start">
+            <ShieldOff className="w-8 h-8 text-muted-foreground shrink-0" />
+            <div className="space-y-1">
+              <h3 className="font-bold">غیرفعال‌سازی رمزنگاری</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                ارسال پیام به کلاینت‌هایی که از Autocrypt پشتیبانی نمی‌کنند، امنیت شما را به خطر می‌اندازد. در این شرایط پیام‌ها به صورت متن ساده (Plaintext) ارسال شده و ت��سط واسطه‌ها قابل شنود هستند.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
         {madConfig.ssURL && (
           <div className="mt-8">
             <ShadowsocksCard url={madConfig.ssURL} />
@@ -79,7 +90,7 @@ export function SecurityPage() {
         <footer className="text-center p-6 bg-primary/5 rounded-xl border border-dashed border-primary/20">
           <p className="text-sm text-muted-foreground leading-relaxed">
             ما هیچ‌گونه اطلاعات شخصی یا محتوای پیام‌های شما را ذخیره نمی‌کنیم.
-            ��یام‌ها پس از {madConfig.retentionDays} روز به طور کامل از سرور ��ذف خواهند شد.
+            پیام‌ها پس از ۲۰ روز به طور کامل از سرور حذف خواهند شد.
           </p>
         </footer>
       </div>
