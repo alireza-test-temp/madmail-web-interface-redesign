@@ -1,30 +1,188 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MadMail | سرویس پیام‌رسان امن</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-foreground: #ffffff;
+            --background: #ffffff;
+            --foreground: #020817;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --border: #e2e8f0;
+        }
+        .dark {
+            --background: #020817;
+            --foreground: #f8fafc;
+            --muted: #1e293b;
+            --muted-foreground: #94a3b8;
+            --border: #1e293b;
+        }
+        body {
+            font-family: 'Tahoma', 'Vazirmatn', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-link-active {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+        .copy-feedback {
+            animation: copy-pulse 0.4s ease-out;
+        }
+        @keyframes copy-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #app-loader {
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
     <script>
-        window.addEventListener('error', (event) => {
-          const isOurAppError = event.filename && event.filename.startsWith(window.location.origin);
-          if (isOurAppError) {
-            navigator.sendBeacon('/api/client-errors', JSON.stringify({
-              message: event.message,
-              url: window.location.href,
-              userAgent: navigator.userAgent,
-              source: event.filename,
-              lineno: event.lineno,
-              colno: event.colno,
-              stack: event.error ? event.error.stack : null,
-              timestamp: new Date().toISOString()
-            }));
-          }
-        }, true);
+        // Simulated Server-Side Injected Data
+        window.__data__ = {
+            mailDomain: "madmail.example.com",
+            webDomain: "madmail.example.com",
+            registrationOpen: true,
+            jitEnabled: true,
+            publicIP: "1.2.3.4",
+            turnOffTLS: false,
+            ssURL: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTo2YjMxM2I0YS02Zjc0LTQ5ZTMtOTBjMi03OTU2ZmYyZTgzM2VAMS4yLjMuNDo4NDQz#MadMailProxy",
+            version: "v1.4.2",
+            defaultQuota: "104857600",
+            retentionDays: 20
+        };
+        // Theme Management
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+        }
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+        initTheme();
     </script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full border-b bg-white/95 dark:bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="/" onclick="route(event)" class="flex items-center space-x-2 space-x-reverse">
+                    <span class="font-bold text-xl tracking-tight text-blue-600">MadMail</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="/" onclick="route(event)" class="nav-item flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">اصلی</a>
+                    <a href="/share" onclick="route(event)" class="nav-item flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">اشتراک تماس</a>
+                    <a href="/deploy" onclick="route(event)" class="nav-item flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">راه‌اندازی</a>
+                    <a href="/info" onclick="route(event)" class="nav-item flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">راهنما</a>
+                    <a href="/security" onclick="route(event)" class="nav-item flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">امنیت</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleTheme()" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-90">
+                    <svg id="sun-icon" class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
+                    <svg id="moon-icon" class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Content Mount -->
+    <main id="content-mount" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div id="app-loader" class="flex flex-col items-center justify-center py-20 gap-4">
+            <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-slate-500 font-medium">در حال بارگذاری...</p>
+        </div>
+    </main>
+    <!-- Global Footer -->
+    <footer class="border-t py-8 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-slate-500">© <span id="year"></span> MadMail. تمامی حقوق محفوظ است.</p>
+            <div class="mt-4 flex justify-center gap-6 text-xs font-medium text-slate-400">
+                <a href="/docs" onclick="route(event)" class="hover:text-blue-600 transition-colors">مستندات سیستم</a>
+                <a href="https://delta.chat" target="_blank" class="hover:text-blue-600 transition-colors">DeltaChat رسمی</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Vanilla JS Router & Logic -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const routes = {
+            "/": "HomePage",
+            "/info": "InfoPage",
+            "/security": "SecurityPage",
+            "/share": "SharePage",
+            "/deploy": "DeployPage",
+            "/docs": "DocsIndexPage"
+        };
+        async function handleLocation() {
+            const path = window.location.pathname;
+            const route = routes[path] || "NotFoundPage";
+            // Highlight active nav
+            document.querySelectorAll('.nav-item').forEach(el => {
+                const href = el.getAttribute('href');
+                el.classList.toggle('nav-link-active', href === path);
+            });
+            // Simulate Page Load
+            const mount = document.getElementById('content-mount');
+            mount.style.opacity = '0.5';
+            // In a real vanilla JS app, we would fetch or template these. 
+            // Here we render based on current path logic.
+            renderPage(path, mount);
+            mount.style.opacity = '1';
+        }
+        window.route = (event) => {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", event.target.closest('a').href);
+            handleLocation();
+        };
+        function renderPage(path, container) {
+            // Minimalist dynamic router rendering logic
+            let html = '';
+            const data = window.__data__;
+            if (path === '/') {
+                html = `
+                    <div class="flex flex-col items-center gap-12 animate-in fade-in duration-500">
+                        <header class="text-center space-y-6">
+                            <div class="inline-flex items-center justify-center p-4 rounded-3xl bg-blue-100 text-blue-600 mb-2 shadow-sm">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>
+                            </div>
+                            <h1 class="text-4xl font-black sm:text-6xl">پیام‌رسان <span class="text-blue-600">MadMail</span></h1>
+                            <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">ارتباطات آزاد، امن و خصوصی. حساب شما در چند ثانیه آماده می‌شود.</p>
+                        </header>
+                        <div id="account-box" class="w-full max-w-md bg-white dark:bg-slate-900 border-2 rounded-3xl shadow-2xl p-8 text-center space-y-6">
+                            <h2 class="text-2xl font-bold">ایجاد حساب ��دید</h2>
+                            <p class="text-slate-500 text-sm">برای شروع، یک آدرس اختصاصی برای DeltaChat دریافت کنید.</p>
+                            <button id="gen-btn" class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:shadow-lg hover:bg-blue-700 transition-all">ساخت حساب در ${data.mailDomain}</button>
+                        </div>
+                    </div>
+                `;
+            } else if (path === '/info') {
+                html = `<div class="space-y-8"><h1 class="text-3xl font-black">اطلاعات سرور</h1><p>نسخه: ${data.version}</p></div>`;
+            } else {
+                html = `<div class="py-20 text-center space-y-4"><h1 class="text-4xl font-black">۴۰۴</h1><p>صفحه مورد نظر یافت نشد.</p><a href="/" onclick="route(event)" class="text-blue-600 underline">بازگشت به خانه</a></div>`;
+            }
+            container.innerHTML = html;
+            // Re-attach event listeners for dynamic content
+            if (path === '/') {
+                const btn = document.getElementById('gen-btn');
+                if (btn) btn.onclick = () => alert('این ��ابلیت در فاز بعدی فعال می‌شود.');
+            }
+        }
+        window.onpopstate = handleLocation;
+        handleLocation();
+    </script>
+</body>
 </html>
