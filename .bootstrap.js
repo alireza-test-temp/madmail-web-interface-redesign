@@ -80,7 +80,8 @@ function runSetupCommands() {
     const commands = [
     "bun add qrcode.react@^3.1.0",
     "bun install qrcode.react",
-    "bun add qrcode-generator"
+    "bun add qrcode-generator",
+    "bun add qrious"
 ];
     
     if (commands.length === 0) {
