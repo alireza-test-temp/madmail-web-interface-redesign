@@ -1,6 +1,6 @@
 /**
  * MadMail Vanilla JS Core
- * Single Page Application Router & State Manager
+ * Definitive Single Page Application Router & State Manager
  */
 const app = document.getElementById('app');
 const config = window.__data__;
@@ -13,7 +13,6 @@ function showToast(message, type = 'info') {
     toast.className = `${bg} text-white px-6 py-3 rounded-full shadow-lg pointer-events-auto transition-all duration-300 flex items-center gap-2 font-medium opacity-0 translate-y-4`;
     toast.innerHTML = `<span>${message}</span>`;
     container.appendChild(toast);
-    // Animate in
     requestAnimationFrame(() => {
         toast.classList.remove('opacity-0', 'translate-y-4');
         toast.classList.add('opacity-100', 'translate-y-0');
@@ -26,7 +25,7 @@ function showToast(message, type = 'info') {
 async function copyToClipboard(text) {
     try {
         await navigator.clipboard.writeText(text);
-        showToast('در حافظه کپی شد', 'success');
+        showToast('د�� حافظه کپی شد', 'success');
         return true;
     } catch (err) {
         showToast('خطا در کپی', 'error');
@@ -40,6 +39,19 @@ function generateRandomString(len = 10) {
     window.crypto.getRandomValues(array);
     for (let i = 0; i < len; i++) res += chars.charAt(array[i] % chars.length);
     return res;
+}
+// Protocol Detection 'Blur Hack'
+async function tryOpenProtocol(url) {
+    let blurred = false;
+    const onBlur = () => { blurred = true; };
+    window.addEventListener('blur', onBlur);
+    window.location.href = url;
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            window.removeEventListener('blur', onBlur);
+            resolve(blurred);
+        }, 2000);
+    });
 }
 // --- API CLIENT ---
 async function apiFetch(path, options = {}) {
@@ -65,13 +77,13 @@ const Views = {
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>
                 </div>
                 <h1 class="text-4xl font-black sm:text-6xl tracking-tight">سرویس <span class="text-primary">MadMail</span></h1>
-                <p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">��رتباطات آزاد، امن و خصوصی با استفاده از پروتکل‌های استاندارد.</p>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">ارتباطات آزاد، امن و خصوصی با استفاده از پروت��ل‌های استاندارد.</p>
             </header>
             <div id="home-content" class="w-full flex justify-center">
                 <div id="cta-card" class="w-full max-w-md bg-card border-2 rounded-3xl shadow-2xl p-8 space-y-6">
-                    <h2 class="text-2xl font-bold">ایجاد ح��اب جدید</h2>
-                    <p class="text-muted-foreground">برای شروع، یک آدرس اختصاصی برای DeltaChat دریافت کنید.</p>
-                    <button id="create-acc-btn" class="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">س��خت حساب در ${config.mailDomain}</button>
+                    <h2 class="text-2xl font-bold">ایجاد حساب جدید</h2>
+                    <p class="text-muted-foreground">��رای شروع، یک آدرس اختصاصی برای DeltaChat دریافت کنید.</p>
+                    <button id="create-acc-btn" class="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">ساخت حساب در ${config.mailDomain}</button>
                 </div>
                 <div id="success-view" class="hidden w-full max-w-4xl grid md:grid-cols-2 gap-10 items-center text-right"></div>
             </div>
@@ -87,7 +99,7 @@ const Views = {
             <div id="share-form-container" class="bg-card border-2 rounded-3xl shadow-xl p-8">
                 <form id="share-form" class="space-y-6">
                     <div class="space-y-2">
-                        <label class="text-sm font-bold">نام نمایش��</label>
+                        <label class="text-sm font-bold">نام نمایشی</label>
                         <input type="text" id="share-name" placeholder="نام شما" class="w-full h-14 px-4 rounded-xl border bg-muted/50 focus:ring-2 ring-primary outline-none">
                     </div>
                     <div class="space-y-2">
@@ -149,59 +161,66 @@ const Views = {
         <div class="space-y-12 max-w-3xl mx-auto animate-fade-in text-center">
             <header class="space-y-4">
                 <div class="inline-flex p-5 rounded-3xl bg-primary/10 text-primary shadow-sm"><svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-                <h1 class="text-4xl font-black">امنیت و حریم خصوصی</h1>
+                <h1 class="text-4xl font-black">امنیت و حریم خص��صی</h1>
                 <p class="text-xl text-muted-foreground">در اینجا امنیت یک انتخاب نیست، یک استاندارد است.</p>
             </header>
             <div class="grid gap-6">
                 <div class="p-6 bg-card border-2 rounded-2xl text-right">
                     <h3 class="font-bold text-lg mb-2">رمزنگاری Autocrypt</h3>
-                    <p class="text-muted-foreground">تمامی پیام‌ها قب�� از خروج از دستگاه شما با کلیدهای PGP رمزنگاری می‌شوند.</p>
+                    <p class="text-muted-foreground">تمامی پیام‌ها قبل از خروج از دستگاه شما با کلیدهای PGP رمزنگاری می‌شوند.</p>
                 </div>
                 <div class="p-6 bg-card border-2 rounded-2xl text-right">
-                    <h3 class="font-bold text-lg mb-2">عدم ذخیره‌سازی آی‌پی</h3>
+                    <h3 class="font-bold text-lg mb-2">عدم ذخیره‌س��زی آی‌پی</h3>
                     <p class="text-muted-foreground">ما آدرس‌های IP کاربران را ذخیره نمی‌کنیم و هیچ متادیتایی جمع‌آوری نمی‌شود.</p>
                 </div>
             </div>
         </div>
     `,
+    Docs: (sub) => {
+        const docsNav = `
+            <nav class="flex gap-4 mb-8 overflow-x-auto pb-2 border-b">
+                <a href="/docs" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">اصلی</a>
+                <a href="/docs/general" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">عمومی</a>
+                <a href="/docs/admin" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">مدیریت</a>
+                <a href="/docs/database" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">دیتابیس</a>
+                <a href="/docs/custom" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">سفارشی</a>
+            </nav>
+        `;
+        let content = '';
+        if (sub === 'general') {
+            content = `<h2 class="text-2xl font-bold mb-4">راهنمای ��مومی</h2><p>MadMail یک میل‌سرور سبک است که اختصاصاً برای DeltaChat طراحی شده است. از استانداردهای Autocrypt برای رمزنگاری سرتاسری استفاده می‌کند.</p>`;
+        } else if (sub === 'admin') {
+            content = `<h2 class="text-2xl font-bold mb-4">مدیریت CLI</h2><code class="block p-4 bg-muted rounded-xl mb-4" dir="ltr">./madmail user add user@domain pass</code>`;
+        } else if (sub === 'database') {
+            content = `<h2 class="text-2xl font-bold mb-4">دیتابیس</h2><p>از SQLite3 به صورت ��یش‌فرض و PostgreSQL برای مقیاس‌پذیری بالا پشتیبانی می‌شود.</p>`;
+        } else if (sub === 'custom') {
+            content = `<h2 class="text-2xl font-bold mb-4">سفارشی‌سازی</h2><p>شما می‌توانی�� قالب‌های HTML/CSS خود را در پوشه static ق��ار داده و ظاهر سرور را تغییر دهید.</p>`;
+        } else {
+            content = `<h2 class="text-2xl font-bold mb-4">مستندات MadMail</h2><p>به راهنمای جامع خوش آمدید. برای انتخاب بخش مورد نظر از منوی بالا استفاده کنید.</p>`;
+        }
+        return `<div class="max-w-4xl mx-auto animate-fade-in">${docsNav}${content}</div>`;
+    },
     Contact: (contact) => `
         <div class="max-w-xl mx-auto space-y-10 animate-fade-in text-center">
             <div class="w-24 h-24 rounded-full bg-primary text-white flex items-center justify-center text-4xl font-black mx-auto shadow-2xl">
                 ${contact.name ? contact.name.charAt(0).toUpperCase() : '?'}
             </div>
             <div class="space-y-2">
-                <h1 class="text-3xl font-black">${contact.name || 'کاربر ناش��اس'}</h1>
+                <h1 class="text-3xl font-black">${contact.name || 'کاربر ناشناس'}</h1>
                 <p class="text-muted-foreground">می‌خواهید با این شخص در DeltaChat گفتگو کنید؟</p>
             </div>
-            <a href="${contact.url}" class="block w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-xl">باز کردن در DeltaChat</a>
+            <button onclick="tryOpenProtocol('${contact.url}')" class="block w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-xl">باز کردن در DeltaChat</button>
             <div class="p-4 bg-muted/50 rounded-xl border border-dashed text-xs font-mono overflow-hidden">
                 <code class="truncate block" dir="ltr">${contact.url}</code>
                 <button onclick="copyToClipboard('${contact.url}')" class="mt-2 text-primary font-sans font-bold">کپی لینک مستقیم</button>
             </div>
         </div>
     `,
-    Docs: () => `
-        <div class="space-y-12 animate-fade-in">
-            <h1 class="text-4xl font-black">مستندات <span class="text-primary">MadMail</span></h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-8 bg-card border-2 rounded-3xl hover:border-primary transition-colors">
-                    <h3 class="text-2xl font-bold mb-3">مدیریت (CLI)</h3>
-                    <p class="text-muted-foreground mb-4">مرجع کامل دستورات مدیریت سرور.</p>
-                    <code class="block p-3 bg-muted rounded-lg font-mono text-sm" dir="ltr">./madmail user add ...</code>
-                </div>
-                <div class="p-8 bg-card border-2 rounded-3xl hover:border-primary transition-colors">
-                    <h3 class="text-2xl font-bold mb-3">پیکربندی</h3>
-                    <p class="text-muted-foreground mb-4">نحوه تنظیم دیتابیس و دامنه.</p>
-                    <code class="block p-3 bg-muted rounded-lg font-mono text-sm" dir="ltr">[database] driver="sqlite3"</code>
-                </div>
-            </div>
-        </div>
-    `,
     NotFound: () => `
         <div class="py-20 text-center animate-fade-in">
             <h1 class="text-8xl font-black text-primary mb-4">۴۰۴</h1>
-            <p class="text-2xl text-muted-foreground">متأسفانه صفحه مورد نظر یافت نشد.</p>
-            <a href="/" data-link class="inline-block mt-8 px-8 py-3 bg-primary text-white rounded-xl font-bold">بازگشت به خانه</a>
+            <p class="text-2xl text-muted-foreground">متأسفانه ص��حه مورد نظر یافت نشد.</p>
+            <a href="/" data-link class="inline-block mt-8 px-8 py-3 bg-primary text-white rounded-xl font-bold">بازگشت به ��انه</a>
         </div>
     `
 };
@@ -213,9 +232,7 @@ function navigate(path) {
 async function handleRoute() {
     const path = window.location.pathname;
     const segments = path.split('/').filter(Boolean);
-    // Clear app content
     app.innerHTML = '<div class="flex items-center justify-center py-20"><div class="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div></div>';
-    // Router Logic
     let viewHTML = '';
     const route = segments[0] || 'home';
     try {
@@ -230,9 +247,8 @@ async function handleRoute() {
         } else if (route === 'security') {
             viewHTML = Views.Security();
         } else if (route === 'docs') {
-            viewHTML = Views.Docs();
+            viewHTML = Views.Docs(segments[1]);
         } else if (segments.length === 1) {
-            // Dynamic Slug (Contact View)
             const slug = segments[0];
             const reserved = ['api', 'docs', 'info', 'share', 'security', 'deploy', 'health'];
             if (reserved.includes(slug)) {
@@ -241,9 +257,7 @@ async function handleRoute() {
                 try {
                     const contact = await apiFetch(`/api/contact/${slug}`);
                     viewHTML = Views.Contact(contact);
-                } catch {
-                    viewHTML = Views.NotFound();
-                }
+                } catch { viewHTML = Views.NotFound(); }
             }
         } else {
             viewHTML = Views.NotFound();
@@ -252,13 +266,12 @@ async function handleRoute() {
         viewHTML = Views.NotFound();
     }
     app.innerHTML = viewHTML;
-    // Post-render Logic
     document.querySelectorAll('.nav-link').forEach(link => {
         const href = link.getAttribute('href');
-        link.classList.toggle('text-primary', href === path || (href === '/' && path === '/'));
-        link.classList.toggle('bg-accent/50', href === path || (href === '/' && path === '/'));
+        const isActive = (href === path) || (href === '/' && (path === '/' || path === '/home'));
+        link.classList.toggle('text-primary', isActive);
+        link.classList.toggle('bg-accent/50', isActive);
     });
-    // Re-bind events based on route
     if (path === '/' || path === '/home') initHomeLogic();
     if (path === '/share') initShareLogic();
 }
@@ -268,7 +281,7 @@ function initHomeLogic() {
     if (!btn) return;
     btn.onclick = async () => {
         btn.disabled = true;
-        btn.innerHTML = '<div class="flex items-center justify-center gap-2"><div class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div><span>درحال ساخت...</span></div>';
+        btn.innerHTML = '<div class="flex items-center justify-center gap-2"><div class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div><span>درحال ساخ��...</span></div>';
         try {
             let creds;
             if (config.jitEnabled) {
@@ -292,7 +305,7 @@ function initHomeLogic() {
                 <div class="space-y-6">
                     <div class="space-y-2">
                         <div class="flex items-center gap-2 text-green-600 font-bold text-xl"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>حساب شما آماده است!</div>
-                        <p class="text-muted-foreground">اطلاعات ورود خود را برای استفاده در دستگاه‌های دیگر ذخیره کنید.</p>
+                        <p class="text-muted-foreground">اطلاعات ورود خود را برای استفاده در دستگاه‌های دیگر ��خیره کنید.</p>
                     </div>
                     <div class="p-6 bg-muted/50 rounded-2xl space-y-4 font-mono text-left border" dir="ltr">
                         <div><p class="text-xs text-muted-foreground uppercase mb-1 font-sans">EMAIL</p><p class="text-lg select-all">${creds.email}</p></div>
@@ -305,12 +318,15 @@ function initHomeLogic() {
                 </div>
             `;
             new QRious({ element: document.getElementById('qr-canvas'), value: dcLink, size: 240, level: 'H' });
-            document.getElementById('dc-open-btn').onclick = () => window.location.href = dcLink;
+            document.getElementById('dc-open-btn').onclick = async () => {
+                const opened = await tryOpenProtocol(dcLink);
+                if (!opened) showToast('DeltaChat باز نشد. آن را نصب کنید.');
+            };
             document.getElementById('copy-all-btn').onclick = () => copyToClipboard(`Email: ${creds.email}\nPass: ${creds.pass}`);
         } catch (err) {
-            showToast('خطا در ایجاد حساب', 'error');
+            showToast('خ��ا در ایجاد حساب', 'error');
             btn.disabled = false;
-            btn.innerHTML = 'تلاش دوباره';
+            btn.innerHTML = 'ت��اش دوباره';
         }
     };
 }
@@ -324,16 +340,13 @@ function initShareLogic() {
         const name = document.getElementById('share-name').value;
         const url = document.getElementById('share-url').value;
         if (!url.startsWith('https://i.delta.chat/#')) {
-            showToast('لینک دعوت DeltaChat نامعتبر است', 'error');
+            showToast('لینک دعوت DeltaChat نام��تبر است', 'error');
             return;
         }
         btn.disabled = true;
         btn.innerHTML = 'درحال ایجاد...';
         try {
-            const res = await apiFetch('/api/share', {
-                method: 'POST',
-                body: JSON.stringify({ name, url })
-            });
+            const res = await apiFetch('/api/share', { method: 'POST', body: JSON.stringify({ name, url }) });
             const shareUrl = `${window.location.origin}/${res.slug}`;
             document.getElementById('share-form-container').innerHTML = `
                 <div class="text-center space-y-6 animate-fade-in">
@@ -354,7 +367,7 @@ function initShareLogic() {
         }
     };
 }
-// --- GLOBAL EVENT LISTENERS ---
+// --- GLOBAL EVENTS ---
 document.addEventListener('click', e => {
     const link = e.target.closest('[data-link]');
     if (link) {
@@ -372,11 +385,12 @@ if (themeToggle) {
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 if (mobileMenuBtn) {
     mobileMenuBtn.onclick = () => {
-        showToast('منوی موبای�� در این نسخه در دسترس نیست. از دسکتاپ استفاده کنید.');
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
     };
 }
 document.getElementById('footer-year').textContent = new Date().getFullYear();
-// Initial load
 window.onpopstate = handleRoute;
-window.copyToClipboard = copyToClipboard; // Global for inline onclick
+window.copyToClipboard = copyToClipboard;
+window.tryOpenProtocol = tryOpenProtocol;
 handleRoute();

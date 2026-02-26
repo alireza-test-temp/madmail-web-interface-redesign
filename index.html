@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MadMail | سرویس ��یام‌رسان امن</title>
+    <title>MadMail | سرویس پیام‌رسان امن</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="/src/index.css">
@@ -25,7 +25,6 @@
         }
     </script>
     <script>
-        // Global Config Simulation
         window.__data__ = {
             mailDomain: "madmail.example.com",
             webDomain: "madmail.example.com",
@@ -44,7 +43,7 @@
         })();
     </script>
 </head>
-<body class="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300 antialiased">
+<body class="min-h-screen flex flex-col bg-background text-foreground antialiased transition-colors duration-300">
     <header class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
             <div class="flex items-center gap-6">
@@ -71,12 +70,26 @@
             </div>
         </div>
     </header>
+    <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-background md:hidden">
+        <div class="p-4 border-b flex justify-between items-center">
+            <span class="font-bold text-xl">منوی MadMail</span>
+            <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="p-2 rounded-md hover:bg-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <nav class="flex flex-col p-4 gap-2">
+            <a href="/" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent">اصلی</a>
+            <a href="/share" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent">اشتراک تماس</a>
+            <a href="/deploy" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent">راه‌اندازی</a>
+            <a href="/info" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent">راهنما</a>
+            <a href="/security" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent">امنیت</a>
+            <a href="/docs" data-link onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="px-4 py-3 text-lg font-bold rounded-xl hover:bg-accent border-t mt-4">مستندات</a>
+        </nav>
+    </div>
     <main id="app" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12"></main>
     <footer class="border-t py-8 bg-muted/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-right flex flex-col sm:flex-row justify-between items-center gap-4">
             <p class="text-sm text-muted-foreground font-medium">© <span id="footer-year"></span> MadMail Project. تمامی حقوق محفوظ است.</p>
             <div class="flex gap-6 text-xs font-bold text-muted-foreground">
-                <a href="/docs" data-link class="hover:text-primary transition-colors">مست��دات</a>
+                <a href="/docs" data-link class="hover:text-primary transition-colors">مستندات</a>
                 <a href="https://delta.chat" target="_blank" class="hover:text-primary transition-colors">DeltaChat</a>
             </div>
         </div>
