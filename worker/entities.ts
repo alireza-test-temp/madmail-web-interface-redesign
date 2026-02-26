@@ -2,14 +2,15 @@
  * Minimal real-world demo: One Durable Object instance per entity (User, ChatBoard, Contact), with Indexes for listing.
  */
 import { IndexedEntity } from "./core-utils";
-import type { User, Chat, ChatMessage } from "@shared/types";
+import type { User, Chat, ChatMessage, Account } from "@shared/types";
 import { MOCK_CHAT_MESSAGES, MOCK_CHATS, MOCK_USERS } from "@shared/mock-data";
-// USER ENTITY: one DO instance per user
-export class UserEntity extends IndexedEntity<User> {
+// USER ENTITY: handles both basic users and full accounts
+export class UserEntity extends IndexedEntity<Account> {
   static readonly entityName = "user";
   static readonly indexName = "users";
-  static readonly initialState: User = { id: "", name: "" };
-  static seedData = MOCK_USERS;
+  static readonly initialState: Account = { id: "", name: "", password: "", email: "" };
+  // Convert mock users to accounts for compatibility
+  static seedData = MOCK_USERS.map(u => ({ ...u, password: "password", email: `${u.id}@example.com` }));
 }
 // CHAT BOARD ENTITY: one DO instance per chat board, stores its own messages
 export type ChatBoardState = Chat & { messages: ChatMessage[] };

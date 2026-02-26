@@ -1,13 +1,21 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Info, Home, Shield, Share2 } from 'lucide-react';
+import { Info, Home, Shield, Share2, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'خانه', path: '/', icon: Home },
-    { name: 'اشتراک‌گذاری', path: '/share', icon: Share2 },
+    { name: 'اشتراک‌��ذاری', path: '/share', icon: Share2 },
     { name: 'اطلاعات', path: '/info', icon: Info },
     { name: 'امنیت', path: '/security', icon: Shield },
   ];
@@ -18,6 +26,7 @@ export function Header() {
           <Link to="/" className="flex items-center space-x-2 space-x-reverse">
             <span className="font-bold text-xl tracking-tight text-primary">MadMail</span>
           </Link>
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -39,6 +48,39 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle className="relative top-0 right-0" />
+          {/* Mobile Nav */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[350px]">
+                <SheetHeader className="text-right pb-6">
+                  <SheetTitle className="text-primary text-xl font-bold">منوی MadMail</SheetTitle>
+                </SheetHeader>
+                <nav className="flex flex-col gap-2">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={cn(
+                          "flex items-center gap-4 px-4 py-3 text-base font-medium transition-colors rounded-lg",
+                          location.pathname === item.path ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent"
+                        )}
+                      >
+                        <Icon className="h-5 w-5" />
+                        {item.name}
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>

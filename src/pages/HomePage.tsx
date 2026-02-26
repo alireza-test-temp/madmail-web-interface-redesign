@@ -8,16 +8,18 @@ import { generateRandomCredential, formatEmail, createDcLoginLink, tryOpenProtoc
 import { QRCodeDisplay } from '@/components/QRCodeDisplay';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import { api } from '@/lib/api-client';
+import type { Account } from '@shared/types';
 type FlowState = 'idle' | 'generating' | 'success' | 'error';
 export function HomePage() {
   const [state, setState] = useState<FlowState>('idle');
   const [creds, setCreds] = useState<{ email: string; pass: string } | null>(null);
   const handleCreateAccount = async () => {
     setState('generating');
-    // Simulate API delay
-    await new Promise(r => setTimeout(r, 1200));
     try {
       if (madConfig.jitEnabled) {
+        // Just-in-Time Generation (Client Side)
+        await new Promise(r => setTimeout(r, 800));
         const user = generateRandomCredential(8);
         const pass = generateRandomCredential(12);
         const email = formatEmail(user, madConfig.mailDomain);
@@ -25,124 +27,144 @@ export function HomePage() {
         setState('success');
         toast.success('حساب با موفقیت ایجاد شد');
       } else {
-        // Here we would call the /api/new endpoint
-        // For now, we simulate a success response
-        const email = formatEmail('user', madConfig.mailDomain);
-        setCreds({ email, pass: 'random-pass' });
+        // API Based Generation (Server Side)
+        const response = await api<Account>('/api/users', {
+          method: 'POST',
+          body: JSON.stringify({ name: 'کاربر جدید' })
+        });
+        setCreds({ email: response.email, pass: response.password });
         setState('success');
+        toast.success('حساب از سرور دریافت شد');
       }
     } catch (error) {
+      console.error(error);
       setState('error');
-      toast.error('خطا در ایجاد ��ساب کاربری');
+      toast.error('خطا در ایجاد حساب کاربری. ��طفاً دوباره تلاش کنید.');
     }
   };
-  const loginLink = creds ? createDcLoginLink({ 
-    email: creds.email, 
-    password: creds.pass, 
-    ssl: !madConfig.turnOffTLS 
+  const loginLink = creds ? createDcLoginLink({
+    email: creds.email,
+    password: creds.pass,
+    ssl: !madConfig.turnOffTLS
   }) : '';
   const handleOpenDeltaChat = async () => {
     const success = await tryOpenProtocol(loginLink);
     if (!success) {
-      toast.info('DeltaChat یافت نشد. لطفاً ابتدا برنامه را نصب کنید.');
+      toast.info('DeltaChat یافت نشد. لطفاً ��بتدا برنامه را نصب کنید.');
     }
   };
   return (
     <AppLayout>
       <div className="flex flex-col items-center gap-8">
         <header className="text-center space-y-4">
-          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 text-primary mb-2">
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 text-primary mb-2"
+          >
             <Sparkles className="w-8 h-8" />
-          </div>
+          </motion.div>
           <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl">
             سرویس پیام‌رسان <span className="text-primary">MadMail</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            یک سرور DeltaChat امن و خصوصی برای ارتباطات آزاد شما. همین ��الا حساب کاربری خود را بسازید.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+            یک سرور DeltaChat امن و خصو��ی برای ارتباطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
           </p>
         </header>
         <AnimatePresence mode="wait">
-          {state === 'idle' && (
-            <motion.div 
+          {state === 'idle' || state === 'error' ? (
+            <motion.div
               key="idle"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md"
+              className="w-full max-w-md px-4"
             >
-              <Card className="border-2 shadow-xl">
-                <CardHeader>
+              <Card className="border-2 shadow-xl overflow-hidden">
+                <CardHeader className="pb-4">
                   <CardTitle>ایجاد حساب جدید</CardTitle>
                   <CardDescription>
-                    با کلیک روی دکمه زیر، یک آدرس ایمیل اخ��صاصی برای استفاده در DeltaChat دریافت کنید.
+                    با ��لیک روی دکمه زیر، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button 
-                    className="w-full h-12 text-lg font-bold gap-2" 
+                  <Button
+                    className="w-full h-14 text-lg font-bold gap-3 shadow-lg hover:shadow-primary/20 transition-all"
                     onClick={handleCreateAccount}
                     disabled={!madConfig.registrationOpen}
                   >
                     <UserPlus className="w-5 h-5" />
-                    ساخت اکانت در {madConfig.mailDomain}
+                    ساخت اکانت ��ر {madConfig.mailDomain}
                   </Button>
                 </CardFooter>
+                {state === 'error' && (
+                  <div className="px-6 pb-4 text-center">
+                    <button onClick={() => setState('idle')} className="text-xs text-muted-foreground hover:text-primary underline">
+                      تلاش مجدد
+                    </button>
+                  </div>
+                )}
               </Card>
             </motion.div>
-          )}
+          ) : null}
           {state === 'generating' && (
-            <motion.div 
+            <motion.div
               key="generating"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-col items-center gap-4 py-12"
+              className="flex flex-col items-center gap-6 py-12"
             >
-              <RefreshCw className="w-12 h-12 text-primary animate-spin" />
-              <p className="text-lg font-medium">در حال پردازش...</p>
+              <div className="relative">
+                <RefreshCw className="w-16 h-16 text-primary animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                   <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
+                </div>
+              </div>
+              <p className="text-xl font-bold text-primary animate-pulse">در حال پیکربندی ایمیل شما...</p>
             </motion.div>
           )}
           {state === 'success' && creds && (
-            <motion.div 
+            <motion.div
               key="success"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-2xl grid md:grid-cols-2 gap-6 items-start"
+              className="w-full max-w-3xl grid md:grid-cols-2 gap-8 items-start px-4"
             >
-              <QRCodeDisplay 
-                value={loginLink} 
+              <QRCodeDisplay
+                value={loginLink}
                 label="این کد را با DeltaChat اسکن کنید"
               />
               <div className="space-y-6">
-                <Card className="border-primary/20 bg-primary/5">
-                  <CardContent className="pt-6 space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-background rounded-lg border">
-                        <Mail className="w-5 h-5 text-primary" />
+                <Card className="border-primary/20 bg-primary/5 shadow-inner">
+                  <CardContent className="pt-6 space-y-5">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2.5 bg-background rounded-xl border shadow-sm shrink-0">
+                        <Mail className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1 overflow-hidden">
-                        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">ایمیل شما</p>
-                        <p className="font-mono text-sm truncate" dir="ltr">{creds.email}</p>
+                        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">آدرس ایمیل</p>
+                        <p className="font-mono text-sm md:text-base truncate select-all" dir="ltr">{creds.email}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-background rounded-lg border">
-                        <Key className="w-5 h-5 text-primary" />
+                    <div className="flex items-center gap-4">
+                      <div className="p-2.5 bg-background rounded-xl border shadow-sm shrink-0">
+                        <Key className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1 overflow-hidden">
-                        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">کلمه عبور</p>
-                        <p className="font-mono text-sm truncate" dir="ltr">{creds.pass}</p>
+                        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">رمز عبور</p>
+                        <p className="font-mono text-sm md:text-base truncate select-all" dir="ltr">{creds.pass}</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 <div className="flex flex-col gap-3">
-                  <Button className="h-12 text-md gap-2 shadow-lg" onClick={handleOpenDeltaChat}>
+                  <Button className="h-14 text-lg gap-3 shadow-xl" onClick={handleOpenDeltaChat}>
                     <ExternalLink className="w-5 h-5" />
-                    ورود مستقیم به DeltaChat
+                    ورود م��تقیم به DeltaChat
                   </Button>
-                  <Button variant="outline" className="h-12" onClick={() => setState('idle')}>
-                    ساخت حساب دیگر
+                  <Button variant="outline" className="h-12 border-2" onClick={() => setState('idle')}>
+                    ساخت حساب کاربری دیگر
                   </Button>
                 </div>
               </div>
