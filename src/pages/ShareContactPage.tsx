@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Share2, RefreshCw, Copy, Check, ExternalLink, Link as LinkIcon, Info } from 'lucide-react';
-import { generateRandomSlug } from '@/lib/account-utils';
+import { Share2, RefreshCw, Copy, Check, ExternalLink, Link as LinkIcon, Info, ShieldCheck } from 'lucide-react';
+import { generateRandomString, copyToClipboard } from '@/lib/account-utils';
 import { api } from '@/lib/api-client';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,24 +18,24 @@ export function ShareContactPage() {
   const [shareResult, setShareResult] = useState<{ slug: string } | null>(null);
   const [copied, setCopied] = useState(false);
   const handleRandomSlug = () => {
-    setFormData(prev => ({ ...prev, slug: generateRandomSlug(8) }));
+    setFormData(prev => ({ ...prev, slug: generateRandomString(8) }));
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedUrl = formData.url.trim();
     if (!trimmedUrl.startsWith('https://i.delta.chat/#')) {
-      toast.error('لینک دع��ت باید با https://i.delta.chat/# شروع شود');
+      toast.error('لینک دعوت باید با https://i.delta.chat/# شروع شود');
       return;
+    }
+    const hasFingerprint = trimmedUrl.includes('openpgp4fpr=');
+    if (!hasFingerprint) {
+      toast.warning('هشدار: این لینک فاقد اثر انگشت امنیتی (OpenPGP) است.');
     }
     const sanitizedSlug = formData.slug.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
     setState('submitting');
     try {
-      const data = await api<{ slug: string }>('/api/share', {
+      const data = await api<{ slug: string }>('/share', {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           ...formData,
           url: trimmedUrl,
@@ -44,21 +44,19 @@ export function ShareContactPage() {
       });
       setShareResult(data);
       setState('success');
-      toast.success('لینک اشتراک با م��فقیت ایجاد شد');
+      toast.success('لینک اشتر��ک با موفقیت ایجاد شد');
     } catch (err) {
       setState('idle');
-      toast.error('خطا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
+      toast.error('خ��ا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
     }
   };
   const shareUrl = shareResult ? `${window.location.origin}/${shareResult.slug}` : '';
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
+    const success = await copyToClipboard(shareUrl);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       toast.success('کپی شد!');
-    } catch (err) {
-      toast.error('خطا در کپی');
     }
   };
   return (
@@ -72,7 +70,7 @@ export function ShareContactPage() {
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک‌گذاری تماس</h1>
+          <h1 className="text-3xl font-black">اشتراک ��ماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">
@@ -102,39 +100,37 @@ export function ShareContactPage() {
                           id="slug"
                           dir="ltr"
                           placeholder="my-contact"
-                          pattern="[a-zA-Z0-9-]+"
-                          title="فقط حروف و اعداد"
                           className="h-12 font-mono"
                           value={formData.slug}
                           onChange={e => setFormData(p => ({ ...p, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }))}
                         />
                         <Button type="button" variant="outline" className="h-12 px-4 gap-2" onClick={handleRandomSlug}>
                           <RefreshCw className="w-4 h-4" />
-                          تصاد��ی
+                          تصادفی
                         </Button>
                       </div>
-                      <p className="text-[11px] text-muted-foreground font-mono" dir="ltr">
-                        {window.location.host}/{formData.slug || '...'}
-                      </p>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="url">لینک دعوت DeltaChat (الزامی)</Label>
-                      <Input
-                        id="url"
-                        dir="ltr"
-                        required
-                        placeholder="https://i.delta.chat/#..."
-                        className="h-12 font-mono text-sm"
-                        value={formData.url}
-                        onChange={e => setFormData(p => ({ ...p, url: e.target.value }))}
-                      />
+                      <div className="relative">
+                        <Input
+                          id="url"
+                          dir="ltr"
+                          required
+                          placeholder="https://i.delta.chat/#..."
+                          className="h-12 font-mono text-sm pl-10"
+                          value={formData.url}
+                          onChange={e => setFormData(p => ({ ...p, url: e.target.value }))}
+                        />
+                        {formData.url.includes('openpgp4fpr=') && (
+                          <ShieldCheck className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
+                        )}
+                      </div>
                       <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-dashed text-xs text-muted-foreground space-y-2">
-                        <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> م��احل دریافت لینک در DeltaChat:</p>
+                        <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> مراحل دریافت لینک:</p>
                         <ol className="list-decimal list-inside space-y-1 pr-1">
-                          <li>وارد بخش تنظیمات (Settings) شوید.</li>
-                          <li>آیکون QR در کنار نام خود را لمس کنید.</li>
-                          <li>گزینه اشتراک (Share) را انتخاب کنید.</li>
-                          <li>گزینه کپی (Copy) را بزنید و در اینجا قرار دهید.</li>
+                          <li>تنظیمات (Settings) → آیکون QR.</li>
+                          <li>گزینه اشتراک (Share) → کپی (Copy).</li>
                         </ol>
                       </div>
                     </div>
@@ -162,7 +158,7 @@ export function ShareContactPage() {
                     <code className="text-sm md:text-base truncate flex-1 font-mono text-left font-bold" dir="ltr">
                       {shareUrl}
                     </code>
-                    <Button size="icon" variant="ghost" className="h-10 w-10 shrink-0 hover:bg-green-500/10" onClick={handleCopy}>
+                    <Button size="icon" variant="ghost" className="h-10 w-10 shrink-0" onClick={handleCopy}>
                       {copied ? <Check className="h-5 w-5 text-green-500" /> : <Copy className="h-5 w-5 text-primary" />}
                     </Button>
                   </div>
@@ -170,9 +166,9 @@ export function ShareContactPage() {
                 <CardFooter className="flex flex-col sm:flex-row gap-3">
                   <Button className="flex-1 h-12 gap-2" onClick={() => navigate(`/${shareResult?.slug}`)}>
                     <ExternalLink className="w-5 h-5" />
-                    مشاهده صفحه ��ماس
+                    مشاهده صفحه تماس
                   </Button>
-                  <Button variant="outline" className="flex-1 h-12" onClick={() => { setState('idle'); setFormData({ name: '', slug: '', url: '' }); }}>
+                  <Button variant="outline" className="flex-1 h-12" onClick={() => setState('idle')}>
                     ایجاد لینک جدید
                   </Button>
                 </CardFooter>

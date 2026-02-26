@@ -3,7 +3,7 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShadowsocksCard } from '@/components/ShadowsocksCard';
 import { madConfig } from '@/lib/config';
-import { Info, Database, Clock, Server, Globe } from 'lucide-react';
+import { Info, Database, Clock, Server, Globe, FileUp } from 'lucide-react';
 function formatBytes(bytes: string) {
   const b = parseInt(bytes);
   if (isNaN(b)) return bytes;
@@ -17,8 +17,8 @@ export function InfoPage() {
   const stats = [
     { label: 'دامنه ایمیل', value: madConfig.mailDomain, icon: Globe },
     { label: 'فضای ذخیره‌سازی', value: formatBytes(madConfig.defaultQuota), icon: Database },
-    { label: 'مدت نگهداری پیام‌ها', value: `۲۰ روز`, icon: Clock },
-    { label: 'نسخه سرور', value: madConfig.version, icon: Server },
+    { label: 'حداکثر حجم پیام', value: formatBytes("26214400"), icon: FileUp }, // Simulated MaxMessageSize
+    { label: 'مدت نگهداری', value: `${madConfig.retentionDays} ر��ز`, icon: Clock },
   ];
   return (
     <AppLayout>
@@ -26,10 +26,10 @@ export function InfoPage() {
         <header className="space-y-2">
           <h1 className="text-3xl font-bold flex items-center gap-3">
             <Info className="w-8 h-8 text-primary" />
-            اطلاعات سرور
+            راهنمای سرور MadMail
           </h1>
           <p className="text-muted-foreground">
-            جزییات فنی و سیاست‌های نگهداری داده در MadMail
+            اطلاعات فنی و سیاست‌های نگهداری داده‌ها در این سرور.
           </p>
         </header>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -57,16 +57,16 @@ export function InfoPage() {
         )}
         <Card>
           <CardHeader>
-            <CardTitle>سیاست‌های حریم خصوصی</CardTitle>
+            <CardTitle>پروتکل‌های مورد است��اده</CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-3">
             <p>
-              ما در MadMail به حریم خصوصی شما اهمیت می‌دهیم. تمامی پیام‌ها رمزنگاری شده و تنها توسط شما و گیرنده قابل خوا��دن هستند.
+              این سرور از استانداردهای <strong>Autocrypt</strong> و <strong>OpenPGP</strong> برای رمزنگاری دوطرفه استفاده می‌کند.
             </p>
             <ul className="list-disc list-inside space-y-1">
-              <li>حذف خودکار ��یام‌ها پس از ۲۰ روز.</li>
-              <li>عدم ذخیره‌سازی آی‌پی کاربران در لاگ‌های سیستمی.</li>
-              <li>امکان غیرفعال‌سازی آنی ح��اب کاربری توسط کاربر.</li>
+              <li>اتصال امن از طریق TLS/SSL.</li>
+              <li>پشتیبانی از ALPN برای پورت‌های اشتراکی.</li>
+              <li>سرویس STUN/TURN برای تماس‌های صوتی و تصویری.</li>
             </ul>
           </CardContent>
         </Card>

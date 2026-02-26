@@ -15,11 +15,11 @@ import {
 export function Header() {
   const location = useLocation();
   const navItems = [
-    { name: 'خانه', path: '/', icon: Home },
-    { name: 'اشتراک‌گذاری', path: '/share', icon: Share2 },
+    { name: 'استاندارد اصلی', path: '/', icon: Home },
+    { name: 'اشتر��ک', path: '/share', icon: Share2 },
     { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
-    { name: 'اطلاعات', path: '/info', icon: Info },
-    { name: 'امنیت', path: '/security', icon: Shield },
+    { name: 'راهنما', path: '/info', icon: Info },
+    { name: 'ا��نیت', path: '/security', icon: Shield },
   ];
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -28,7 +28,6 @@ export function Header() {
           <Link to="/" className="flex items-center space-x-2 space-x-reverse">
             <span className="font-bold text-xl tracking-tight text-primary">MadMail</span>
           </Link>
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -50,7 +49,6 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle className="relative top-0 right-0" />
-          {/* Mobile Nav */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -61,7 +59,7 @@ export function Header() {
               <SheetContent side="right" className="w-[280px] sm:w-[350px]">
                 <SheetHeader className="text-right pb-6">
                   <SheetTitle className="text-primary text-xl font-bold">منوی MadMail</SheetTitle>
-                  <SheetDescription className='sr-only'>منوی ناوبری MadMail.</SheetDescription>
+                  <SheetDescription className='sr-only'>منوی ��اوبری MadMail.</SheetDescription>
                 </SheetHeader>
                 <nav className="flex flex-col gap-2">
                   {navItems.map((item) => {
