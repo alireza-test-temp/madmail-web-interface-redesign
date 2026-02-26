@@ -8,11 +8,10 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
-    --border: 214.3 31.8% 91.4%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -20,24 +19,27 @@
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
-    --border: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
   }
   html, body {
     direction: rtl;
     font-family: 'Tahoma', 'Vazirmatn', sans-serif;
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scroll-smooth transition-colors duration-300;
   }
 }
-.animate-in {
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
 }
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.fade-in { animation-name: fade-in; }
+::selection {
+  @apply bg-primary/20 text-primary;
+}
+.nav-link.active {
+    @apply text-primary bg-accent/50;
+}

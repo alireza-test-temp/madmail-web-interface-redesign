@@ -8,7 +8,24 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="/src/index.css">
     <script>
-        // Global Config Simulation (Injected by Go server in production)
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+                        card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+                        accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        // Global Config Simulation
         window.__data__ = {
             mailDomain: "madmail.example.com",
             webDomain: "madmail.example.com",
@@ -21,30 +38,30 @@
             defaultQuota: "104857600",
             retentionDays: 20
         };
-        // Theme Initialization
         (function() {
             const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.classList.toggle('dark', theme === 'dark');
         })();
     </script>
 </head>
-<body class="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
+<body class="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300 antialiased">
     <header class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
             <div class="flex items-center gap-6">
-                <a href="/" data-link class="flex items-center gap-2">
-                    <span class="font-bold text-xl tracking-tight text-primary">MadMail</span>
+                <a href="/" data-link class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-black group-hover:rotate-12 transition-transform">M</div>
+                    <span class="font-black text-xl tracking-tight text-primary">MadMail</span>
                 </a>
                 <nav class="hidden md:flex items-center gap-1">
-                    <a href="/" data-link class="nav-link px-4 py-2 text-sm font-medium rounded-md hover:bg-accent">اصلی</a>
-                    <a href="/share" data-link class="nav-link px-4 py-2 text-sm font-medium rounded-md hover:bg-accent">اشتراک تماس</a>
-                    <a href="/deploy" data-link class="nav-link px-4 py-2 text-sm font-medium rounded-md hover:bg-accent">راه‌اندازی</a>
-                    <a href="/info" data-link class="nav-link px-4 py-2 text-sm font-medium rounded-md hover:bg-accent">راهنما</a>
-                    <a href="/security" data-link class="nav-link px-4 py-2 text-sm font-medium rounded-md hover:bg-accent">امنیت</a>
+                    <a href="/" data-link class="nav-link px-4 py-2 text-sm font-bold rounded-md hover:bg-accent transition-colors">اصلی</a>
+                    <a href="/share" data-link class="nav-link px-4 py-2 text-sm font-bold rounded-md hover:bg-accent transition-colors">اشتراک تماس</a>
+                    <a href="/deploy" data-link class="nav-link px-4 py-2 text-sm font-bold rounded-md hover:bg-accent transition-colors">راه‌اندازی</a>
+                    <a href="/info" data-link class="nav-link px-4 py-2 text-sm font-bold rounded-md hover:bg-accent transition-colors">راهنما</a>
+                    <a href="/security" data-link class="nav-link px-4 py-2 text-sm font-bold rounded-md hover:bg-accent transition-colors">امنیت</a>
                 </nav>
             </div>
             <div class="flex items-center gap-2">
-                <button id="theme-toggle" class="p-2 rounded-md hover:bg-accent transition-all active:scale-90">
+                <button id="theme-toggle" class="p-2 rounded-md hover:bg-accent transition-all active:scale-90" aria-label="Toggle Theme">
                     <svg id="sun-icon" class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
                     <svg id="moon-icon" class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
@@ -57,14 +74,14 @@
     <main id="app" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12"></main>
     <footer class="border-t py-8 bg-muted/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-right flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-muted-foreground">© <span id="footer-year"></span> MadMail. تمامی حقوق محفوظ است.</p>
-            <div class="flex gap-6 text-xs font-medium text-muted-foreground">
-                <a href="/docs" data-link class="hover:text-primary transition-colors">م��تندات</a>
+            <p class="text-sm text-muted-foreground font-medium">© <span id="footer-year"></span> MadMail Project. تمامی حقوق محفوظ است.</p>
+            <div class="flex gap-6 text-xs font-bold text-muted-foreground">
+                <a href="/docs" data-link class="hover:text-primary transition-colors">مست��دات</a>
                 <a href="https://delta.chat" target="_blank" class="hover:text-primary transition-colors">DeltaChat</a>
             </div>
         </div>
     </footer>
-    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 pointer-events-none space-y-2"></div>
+    <div id="toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none space-y-2"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <script type="module" src="/src/main.js"></script>
 </body>
