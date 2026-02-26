@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Mail, Key, UserPlus, ExternalLink, RefreshCw } from 'lucide-react';
+import { Sparkles, Mail, Key, UserPlus, ExternalLink, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { madConfig } from '@/lib/config';
 import { generateRandomString, formatEmail, createDcLoginLink, tryOpenProtocol } from '@/lib/account-utils';
 import { QRCodeDisplay } from '@/components/QRCodeDisplay';
@@ -24,13 +24,13 @@ export function HomePage() {
     setState('generating');
     try {
       if (madConfig.jitEnabled) {
-        await new Promise(r => setTimeout(r, 600));
+        await new Promise(r => setTimeout(r, 800));
         const user = generateRandomString(8);
         const pass = generateRandomString(12);
         const email = formatEmail(user, madConfig.mailDomain);
         setCreds({ email, pass });
         setState('success');
-        toast.success('حساب با موفقیت ایجاد شد');
+        toast.success('حسا�� کاربری با موفقیت آماده شد');
       } else {
         const response = await api<Account>('/new', {
           method: 'POST',
@@ -38,12 +38,12 @@ export function HomePage() {
         });
         setCreds({ email: response.email, pass: response.password });
         setState('success');
-        toast.success('حساب از سرور دریافت شد');
+        toast.success('حساب کاربری از سرور دریافت شد');
       }
     } catch (error) {
       console.error(error);
       setState('error');
-      toast.error('خطا در ایجاد حساب کاربری. لطفاً دوباره تلاش کنید.');
+      toast.error('خ��ا در ایجاد حساب کاربری. لطفاً دوباره تلاش کنید.');
     }
   }, []);
   useEffect(() => {
@@ -60,127 +60,145 @@ export function HomePage() {
       ssl: !madConfig.turnOffTLS
     });
   }, [creds]);
-  const qrCodeSection = useMemo(() => (
-    <QRCodeDisplay
-      value={loginLink}
-      label="این کد را با DeltaChat اسکن کنید"
-    />
-  ), [loginLink]);
   const handleOpenDeltaChat = async () => {
     const success = await tryOpenProtocol(loginLink);
     if (!success) {
-      toast.info('DeltaChat یافت نشد. لطفاً ابتدا برنامه را نصب کنید.');
+      toast.info('برنامه DeltaChat پیدا نشد. لطفاً آن را نصب کنید.');
     }
   };
   return (
     <AppLayout>
-      <div className="flex flex-col items-center gap-8">
-        <header className="text-center space-y-4">
+      <div className="flex flex-col items-center gap-12">
+        <header className="text-center space-y-6">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 text-primary mb-2"
+            className="inline-flex items-center justify-center p-4 rounded-3xl bg-primary/10 text-primary mb-2 shadow-sm"
           >
-            <Sparkles className="w-8 h-8" />
+            <Sparkles className="w-10 h-10" />
           </motion.div>
-          <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl">
-            سرویس پیام‌رسان <span className="text-primary">MadMail</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            یک سرور DeltaChat امن و خصوصی برای ار��باطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
-          </p>
+          <div className="space-y-2">
+            <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-6xl">
+              سرویس پیام���رسان <span className="text-primary">MadMail</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
+              ارتباطات آزاد، امن و خصوصی با استفاده از پروتکل‌های استاندارد. 
+              حساب کاربری شما در چند ثانیه آماده می‌شود.
+            </p>
+          </div>
         </header>
         <AnimatePresence mode="wait">
-          {state === 'idle' || state === 'error' ? (
+          {(state === 'idle' || state === 'error') && (
             <motion.div
               key="idle"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
               className="w-full max-w-md px-4"
             >
-              <Card className="border-2 shadow-xl overflow-hidden">
-                <CardHeader className="pb-4">
-                  <CardTitle>ایجاد حساب جدید</CardTitle>
+              <Card className="border-2 shadow-2xl overflow-hidden">
+                <CardHeader className="text-center pb-6">
+                  <CardTitle className="text-2xl">ایجاد حساب جدید</CardTitle>
                   <CardDescription>
-                    با کلیک روی دکمه زیر، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
+                    برای شروع، یک آدرس ایمیل ا��تصاصی برای DeltaChat دریافت کنید.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button
-                    className="w-full h-14 text-lg font-bold gap-3 shadow-lg hover:shadow-primary/40 transition-all bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-none"
+                    className="w-full h-16 text-xl font-bold gap-3 shadow-xl hover:shadow-primary/40 transition-all bg-primary text-primary-foreground border-none"
                     onClick={handleCreateAccount}
                     disabled={!madConfig.registrationOpen}
                   >
-                    <UserPlus className="w-5 h-5" />
-                    ساخت اکانت ��ر {madConfig.mailDomain}
+                    <UserPlus className="w-6 h-6" />
+                    ساخت حساب در {madConfig.mailDomain}
                   </Button>
                 </CardFooter>
                 {state === 'error' && (
-                  <div className="px-6 pb-4 text-center">
-                    <button onClick={() => setState('idle')} className="text-xs text-muted-foreground hover:text-primary underline">
-                      تلاش مجدد
+                  <div className="px-6 pb-6 text-center">
+                    <button onClick={() => setState('idle')} className="text-sm font-medium text-destructive hover:underline">
+                      تلاش دوباره
                     </button>
                   </div>
                 )}
               </Card>
             </motion.div>
-          ) : null}
+          )}
           {state === 'generating' && (
             <motion.div
               key="generating"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-col items-center gap-6 py-12"
+              className="flex flex-col items-center gap-8 py-20"
             >
               <div className="relative">
-                <RefreshCw className="w-16 h-16 text-primary animate-spin" />
+                <RefreshCw className="w-20 h-20 text-primary animate-spin" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                   <div className="w-4 h-4 bg-primary rounded-full animate-pulse" />
+                   <div className="w-5 h-5 bg-primary rounded-full animate-pulse" />
                 </div>
               </div>
-              <p className="text-xl font-bold text-primary animate-pulse">در حال پیکربندی ایمیل شما...</p>
+              <div className="text-center space-y-2">
+                <p className="text-2xl font-black text-primary animate-pulse">در حال آماده‌ساز��...</p>
+                <p className="text-muted-foreground">امنیت شما اولویت ماست.</p>
+              </div>
             </motion.div>
           )}
           {state === 'success' && creds && (
             <motion.div
               key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-start px-4"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-full max-w-5xl grid md:grid-cols-2 gap-10 items-center px-4"
             >
-              {qrCodeSection}
-              <div className="space-y-6">
-                <Card className="border-primary/20 bg-primary/5 shadow-inner">
-                  <CardContent className="p-[15px] rounded-[8px] bg-black/5 space-y-5">
-                    <div className="flex items-center gap-4">
-                      <div className="p-2.5 bg-background rounded-xl border shadow-sm shrink-0">
-                        <Mail className="w-6 h-6 text-primary" />
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <QRCodeDisplay
+                  value={loginLink}
+                  label="کد بالا را با ��وربین DeltaChat اسکن کنید"
+                />
+              </motion.div>
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                    <CheckCircle2 className="w-6 h-6" />
+                    <span className="text-xl font-bold">حساب شما فعال شد!</span>
+                  </div>
+                  <Card className="border-primary/20 bg-muted/30 shadow-inner overflow-hidden">
+                    <CardContent className="p-6 space-y-6">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-background rounded-2xl border shadow-sm">
+                          <Mail className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mb-1">آدرس ایمیل</p>
+                          <p className="font-mono text-lg truncate select-all" dir="ltr">{creds.email}</p>
+                        </div>
                       </div>
-                      <div className="flex-1 overflow-hidden">
-                        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">آدرس ایمیل</p>
-                        <p className="font-mono text-sm md:text-base truncate select-all" dir="ltr">{creds.email}</p>
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-background rounded-2xl border shadow-sm">
+                          <Key className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mb-1">رمز عبور</p>
+                          <p className="font-mono text-lg truncate select-all" dir="ltr">{creds.pass}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="p-2.5 bg-background rounded-xl border shadow-sm shrink-0">
-                        <Key className="w-6 h-6 text-primary" />
-                      </div>
-                      <div className="flex-1 overflow-hidden">
-                        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">رمز عبور</p>
-                        <p className="font-mono text-sm md:text-base truncate select-all" dir="ltr">{creds.pass}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-                <div className="flex flex-col gap-3">
-                  <Button className="h-14 text-lg gap-3 shadow-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-none" onClick={handleOpenDeltaChat}>
-                    <ExternalLink className="w-5 h-5" />
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <Button 
+                    className="h-16 text-xl gap-3 shadow-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-[1.02] active:scale-[0.98] transition-all text-white border-none" 
+                    onClick={handleOpenDeltaChat}
+                  >
+                    <ExternalLink className="w-6 h-6" />
                     ورود مستقیم به DeltaChat
                   </Button>
-                  <Button variant="outline" className="h-12 border-2" onClick={handleCreateAccount}>
-                    ساخت حساب کاربری دیگر
+                  <Button variant="ghost" className="h-12 text-muted-foreground hover:text-foreground" onClick={handleCreateAccount}>
+                    ساخت یک حساب کاربری ��یگر
                   </Button>
                 </div>
               </div>

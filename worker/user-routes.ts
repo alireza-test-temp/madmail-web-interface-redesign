@@ -3,7 +3,8 @@ import type { Env } from './core-utils';
 import { UserEntity, ContactEntity } from "./entities";
 import { ok, bad, notFound } from './core-utils';
 /**
- * Secure random string generator for passwords and IDs
+ * Secure random string generator for passwords and IDs.
+ * Uses bitmasking to avoid modulo bias.
  */
 function secureRandomString(length: number = 10): string {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -19,7 +20,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   // ALIAS ROUTES FOR GO SPECIFICATION
   app.post('/new', async (c) => createUser(c));
   app.post('/share', async (c) => createShare(c));
-  app.get('/qr', async (c) => ok(c, { message: 'از پروتکل dclogin: برای نمایش QR کد استفاده کنید' }));
+  app.get('/qr', async (c) => ok(c, { message: '��ز پروتکل dclogin: برای نمایش QR کد استفاده کنید' }));
   // ORIGINAL API ROUTES
   app.get('/api/users', async (c) => {
     await UserEntity.ensureSeed(c.env);
@@ -31,14 +32,23 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.post('/api/users', async (c) => createUser(c));
   app.post('/api/share', async (c) => createShare(c));
   app.get('/api/contact/:slug', async (c) => getContact(c));
-  app.get('/:slug', async (c) => getContact(c)); // Dynamic mux pattern
+  // Dynamic mux pattern for public links
+  app.get('/:slug', async (c) => {
+    const slug = c.req.param('slug');
+    const reserved = ['api', 'docs', 'info', 'share', 'security', 'deploy', 'health'];
+    if (reserved.includes(slug)) {
+      return c.notFound();
+    }
+    return getContact(c);
+  });
   app.delete('/api/users/:id', async (c) => ok(c, { id: c.req.param('id'), deleted: await UserEntity.delete(c.env, c.req.param('id')) }));
 }
 async function createUser(c: any) {
   const { name } = (await c.req.json()) as { name?: string };
   const username = secureRandomString(8);
   const password = secureRandomString(12);
-  const domain = "madmail.example.com"; // Consistent with madConfig simulation
+  // Synchronized with src/lib/config.ts simulation
+  const domain = "madmail.example.com"; 
   const account = await UserEntity.create(c.env, {
     id: crypto.randomUUID(),
     name: (name?.trim() || username),
@@ -61,20 +71,16 @@ async function createShare(c: any) {
   }
   const contact = await ContactEntity.create(c.env, {
     id: slug,
-    name: name?.trim() || '',
+    name: name?.trim() || 'کاربر ناشناس',
     url: url.trim()
   });
   return ok(c, { slug: contact.id });
 }
 async function getContact(c: any) {
   const slug = c.req.param('slug');
-  // Avoid collision with system folders if hosted on root
-  if (slug === 'api' || slug === 'docs' || slug === 'info' || slug === 'share' || slug === 'security' || slug === 'deploy') {
-    return c.notFound();
-  }
   const contact = new ContactEntity(c.env, slug);
   if (!(await contact.exists())) {
-    return notFound(c, 'لینک اشتراک یافت نشد');
+    return notFound(c, 'لینک ��شتراک یافت نشد');
   }
   return ok(c, await contact.getState());
 }
