@@ -1,31 +1,26 @@
-/*
-Wraps children in a sidebar layout. Don't use this if you don't need a sidebar
-*/
-import React from "react";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-
-type AppLayoutProps = {
+import React from 'react';
+import { Header } from './Header';
+import { Toaster } from '@/components/ui/sonner';
+interface AppLayoutProps {
   children: React.ReactNode;
-  container?: boolean;
-  className?: string;
-  contentClassName?: string;
-};
-
-export function AppLayout({ children, container = false, className, contentClassName }: AppLayoutProps): JSX.Element {
+}
+export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <SidebarProvider defaultOpen={false}>
-      <AppSidebar />
-      <SidebarInset className={className}>
-        <div className="absolute left-2 top-2 z-20">
-          <SidebarTrigger />
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-8 md:py-10 lg:py-12">
+            {children}
+          </div>
         </div>
-        {container ? (
-          <div className={"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-12" + (contentClassName ? ` ${contentClassName}` : "")}>{children}</div>
-        ) : (
-          children
-        )}
-      </SidebarInset>
-    </SidebarProvider>
+      </main>
+      <footer className="border-t py-6 bg-muted/30">
+        <div className="max-w-4xl mx-auto px-4 text-center text-sm text-muted-foreground">
+          <p>© {new Date().getFullYear()} MadMail. تمامی حقوق محفوظ است.</p>
+        </div>
+      </footer>
+      <Toaster richColors position="top-center" />
+    </div>
   );
 }

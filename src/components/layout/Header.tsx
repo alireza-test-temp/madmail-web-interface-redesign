@@ -1,29 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Info, Home, Shield, Share2, Menu, Settings } from 'lucide-react';
+import { Info, Home, Shield, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 export function Header() {
   const location = useLocation();
   const navItems = [
-    { name: 'استاندارد اصلی', path: '/', icon: Home },
-    { name: 'اشتراک تماس', path: '/share', icon: Share2 },
-    { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
-    { name: 'راهنما', path: '/info', icon: Info },
-    { name: 'امنیت', path: '/security', icon: Shield },
+    { name: 'خانه', path: '/', icon: Home },
+    { name: 'اطلاعات', path: '/info', icon: Info },
   ];
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+      <div className="max-w-4xl mx-auto px-4 flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center space-x-2 space-x-reverse">
             <span className="font-bold text-xl tracking-tight text-primary">MadMail</span>
@@ -49,39 +37,6 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle className="relative top-0 right-0" />
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[350px]">
-                <SheetHeader className="text-right pb-6">
-                  <SheetTitle className="text-primary text-xl font-bold">منوی MadMail</SheetTitle>
-                  <SheetDescription className="sr-only">منوی ناوبری MadMail برای دسترسی به بخش‌های مختلف.</SheetDescription>
-                </SheetHeader>
-                <nav className="flex flex-col gap-2">
-                  {navItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className={cn(
-                          "flex items-center gap-4 px-4 py-3 text-base font-medium transition-colors rounded-lg",
-                          location.pathname === item.path ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent"
-                        )}
-                      >
-                        <Icon className="h-5 w-5" />
-                        {item.name}
-                      </Link>
-                    );
-                  })}
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
         </div>
       </div>
     </header>
