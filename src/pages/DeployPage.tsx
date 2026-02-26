@@ -27,7 +27,7 @@ export function DeployPage() {
     <AppLayout>
       <div className="max-w-3xl mx-auto space-y-10">
         <header className="text-center space-y-4">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="inline-flex p-4 rounded-3xl bg-primary/10 text-primary mb-2"
@@ -54,9 +54,9 @@ export function DeployPage() {
                 <pre className="p-5 bg-zinc-950 text-zinc-100 rounded-xl font-mono text-sm overflow-x-auto whitespace-pre-wrap leading-relaxed shadow-inner" dir="ltr">
                   {installCmd}
                 </pre>
-                <Button 
-                  variant="secondary" 
-                  size="icon" 
+                <Button
+                  variant="secondary"
+                  size="icon"
                   className="absolute top-3 right-3 h-10 w-10 opacity-0 group-hover:opacity-100 transition-opacity"
                   onClick={() => handleCopy(installCmd, setCopiedInstall)}
                 >
@@ -69,18 +69,18 @@ export function DeployPage() {
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Zap className="w-6 h-6 text-amber-500" />
-                <CardTitle>به‌��وزرسانی سریع</CardTitle>
+                <CardTitle>به‌روزرسانی سری��</CardTitle>
               </div>
-              <CardDescription>برای دریافت آخرین نس��ه‌ها و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
+              <CardDescription>برای دریافت آخرین نسخه‌��ا و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="relative group">
                 <pre className="p-4 bg-zinc-100 dark:bg-zinc-900 border text-foreground rounded-lg font-mono text-sm overflow-x-auto" dir="ltr">
                   {updateCmd}
                 </pre>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
+                <Button
+                  variant="ghost"
+                  size="icon"
                   className="absolute top-2 right-2 h-8 w-8"
                   onClick={() => handleCopy(updateCmd, setCopiedUpdate)}
                 >
@@ -98,11 +98,11 @@ export function DeployPage() {
         <footer className="flex flex-col sm:flex-row gap-4 justify-between items-center p-6 bg-accent/30 rounded-2xl border border-dashed">
           <div className="flex items-center gap-3">
             <HelpCircle className="w-6 h-6 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">نیاز به راهنمایی بیشتر بای سفارشی‌سازی دارید؟</p>
+            <p className="text-sm text-muted-foreground">نیاز به راهنمایی بیشتر برای سفارشی‌سازی دارید؟</p>
           </div>
           <Button variant="link" asChild className="gap-2 font-bold group">
-            <Link to="/docs/custom-html">
-              مطال��ه مستندات وب
+            <Link to="/docs">
+              ف��رست مستندات
               <ArrowRight className="w-4 h-4 group-hover:translate-x-[-4px] transition-transform" />
             </Link>
           </Button>

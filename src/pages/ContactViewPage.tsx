@@ -50,7 +50,7 @@ export function ContactViewPage() {
           <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
             <MessageSquare className="w-10 h-10 text-primary/50" />
           </motion.div>
-          <p className="text-muted-foreground animate-pulse">��ر حال دریافت اطلاعات تماس...</p>
+          <p className="text-muted-foreground animate-pulse">در حال دریافت اطلاعات تماس...</p>
         </div>
       </AppLayout>
     );
@@ -62,9 +62,9 @@ export function ContactViewPage() {
           <CardContent className="space-y-4">
             <ShieldAlert className="w-16 h-16 text-destructive mx-auto" />
             <h1 className="text-2xl font-bold">تماس یافت نشد</h1>
-            <p className="text-muted-foreground">متأسفانه این لینک اشتراک وجود ندارد یا منقضی شده است.</p>
+            <p className="text-muted-foreground">��تأسفانه این لینک اشتراک وجود ندارد یا منقضی شده است.</p>
             <Button asChild className="w-full">
-              <Link to="/">بازگشت به خانه</Link>
+              <Link to="/">بازگشت به ��انه</Link>
             </Button>
           </CardContent>
         </Card>
@@ -80,8 +80,8 @@ export function ContactViewPage() {
             {initials}
           </div>
           <div className="space-y-2">
-            <h1 className="text-3xl font-black">{contact.name || 'تماس ناشناس'}</h1>
-            <p className="text-muted-foreground">می‌خواهید با ��ین شخص در DeltaChat گفتگو کنید؟</p>
+            <h1 className="text-3xl font-black">{contact.name || 'تماس ن��شناس'}</h1>
+            <p className="text-muted-foreground">می‌خواهید با این شخص در DeltaChat گفتگو کنید؟</p>
           </div>
           <Button asChild size="lg" className="h-16 px-8 text-xl font-bold gap-3 shadow-lg hover:scale-105 transition-transform">
             <a href={contact.url}>
@@ -110,7 +110,7 @@ export function ContactViewPage() {
               <div className="space-y-1">
                 <p className="font-bold text-amber-900 dark:text-amber-200">هشدار امنیتی</p>
                 <p className="text-sm text-amber-800/70 dark:text-amber-300/70 leading-relaxed">
-                  هویت این تماس را با اثر انگشت PGP تأیید کنید قبل از اعتماد کامل. هرگز از روی لینک به تنهایی اعتماد نکنید.
+                  هویت این تماس را با ا��ر انگشت PGP تأیید کنید قبل از اعتما�� کامل. هرگز تنها به صرف داشتن لینک اعتماد نکنید.
                 </p>
               </div>
             </CardContent>
@@ -121,7 +121,7 @@ export function ContactViewPage() {
           <Button variant="link" asChild className="text-muted-foreground gap-2">
             <Link to="/">
               <ArrowRight className="w-4 h-4" />
-              ساخت آدرس مشابه برای خودتان
+              ساخت آدرس مشابه ��رای خودتان
             </Link>
           </Button>
         </div>

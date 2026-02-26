@@ -8,20 +8,20 @@ import { motion } from 'framer-motion';
 export function SecurityPage() {
   const securityTips = [
     "همیشه اثر انگشت PGP را با گیرنده به صورت حضوری یا کانال امن تأیید کنید.",
-    "از پروکسی Shadowsocks ب��ای مخفی کردن ترافیک استفاده کنید.",
+    "از پروکسی Shadowsocks برای مخفی کردن ترافیک استفاده کنید.",
     "هرگز لینک‌های ناشناخته را بدون بررسی باز نکنید.",
     "DeltaChat را همیشه به‌روز نگه دارید.",
-    "از WiFi عمومی برای ارت��اطات حساس اجتناب کنید."
+    "از WiFi عمومی برای ارتباطات حساس اجتناب کنید."
   ];
   const features = [
     { label: 'رمزنگاری دوطرفه', desc: 'تمامی پیام‌ها با استاندارد Autocrypt رمزنگاری می‌شوند.', icon: Lock },
-    { label: '��دون ردپا', desc: 'آی‌پی و متادیتای حساس شما در ��رور ذخیره نمی‌شود.', icon: EyeOff },
-    { label: 'پروکسی داخلی', desc: 'استفاده از Shadowsocks برای دو�� زدن فیلترینگ.', icon: Zap },
+    { label: 'بدون ردپا', desc: 'آی‌پی و متادیتای حساس شما در سرور ذخیره نمی‌شود.', icon: EyeOff },
+    { label: 'پروکسی داخلی', desc: 'استفاده از Shadowsocks برای دور زدن فیلترینگ.', icon: Zap },
   ];
   return (
     <AppLayout>
       <div className="space-y-8 max-w-3xl mx-auto">
-        <motion.header 
+        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center space-y-4"
@@ -55,7 +55,7 @@ export function SecurityPage() {
           <CardContent>
             <ul className="space-y-4">
               {securityTips.map((tip, i) => (
-                <motion.li 
+                <motion.li
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -78,8 +78,8 @@ export function SecurityPage() {
         )}
         <footer className="text-center p-6 bg-primary/5 rounded-xl border border-dashed border-primary/20">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            ما هیچ‌گونه اطلاعات شخصی یا محتوای پیام‌های شما را ذخیره نمی‌کنیم. 
-            پیام‌ها پس از {madConfig.retentionDays} روز به طور کامل از سرور ح��ف خواهند شد.
+            ما هیچ‌��ونه اطلاعات شخصی یا محتوای پیام‌های شما را ذخیره نمی‌کنیم.
+            پیام‌ها پس از {madConfig.retentionDays} روز به طور کامل از سرور حذف ��واهند شد.
           </p>
         </footer>
       </div>

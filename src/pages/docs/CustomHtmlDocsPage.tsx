@@ -4,16 +4,16 @@ import { Code, Settings, Globe, RefreshCw } from 'lucide-react';
 export function CustomHtmlDocsPage() {
   const steps = [
     { title: 'خروجی گرفتن', icon: Code, desc: 'ابتدا پروژه فرانت‌اند را با دستور build بسازید و محتویات پوشه dist را آماده کنید.' },
-    { title: 'تزریق به سرور', icon: Settings, desc: 'محتویات را در پوشه web_templates در کنار فایل اجرایی قرار دهید.' },
+    { title: 'تزریق به سرور', icon: Settings, desc: 'محتویات را در پوشه web_templates در کنار ��ایل اجرایی قرار دهید.' },
     { title: 'راه‌اندازی مجدد', icon: RefreshCw, desc: 'یک بار سرور را ریستارت کنید تا قالب‌های جدید شناسایی شوند.' },
-    { title: 'بررسی دامنه', icon: Globe, desc: 'آدرس سرور را در مرورگر باز کنید تا تغییرات را مشاهده نمایید.' }
+    { title: 'بررسی دامنه', icon: Globe, desc: 'آدرس سرور را در مرورگر باز کنید تا تغییرات را م��اهده نمایید.' }
   ];
   return (
     <DocsLayout>
       <div className="max-w-4xl mx-auto space-y-12">
         <header className="space-y-4">
-          <h1 className="text-4xl font-black">سفارشی‌سازی ظاهر (HTML/CSS)</h1>
-          <p className="text-muted-foreground text-lg">چ��ونه می‌توانید این رابط کاربری را تغییر داده و روی سرور خودتان اجرا کنید.</p>
+          <h1 className="text-4xl font-black">سفارشی‌سازی ظاه�� (HTML/CSS)</h1>
+          <p className="text-muted-foreground text-lg">چگونه می‌توانید این رابط کاربری را تغییر داده و روی سرور خودتان اجرا کنید.</p>
         </header>
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {steps.map((step, i) => (
@@ -31,12 +31,12 @@ export function CustomHtmlDocsPage() {
         <article className="prose prose-zinc dark:prose-invert max-w-none">
           <h2>نکات فنی مهم</h2>
           <p>
-            سرور MadMail از متغیرهای محیطی برای تزریق داده‌ها به قالب‌های HTML استفاده می‌کند. اگر می‌خواهید از این پروژه React 
-            به صورت مستقیم استفاده کنید، باید موارد ��یر را در نظر بگیرید:
+            سرور MadMail از متغیرهای محیطی برای تزریق داده‌ها به قالب‌های HTML استفاده می‌کند. اگر می‌خواهید از این پروژه React
+            به صورت مستقیم استفاده کنید، باید مو��رد زیر را در نظر بگیرید:
           </p>
           <ul>
             <li><strong>مد JIT:</strong> اگر JIT فعال باشد، کلاینت به هیچ API خاصی نیاز ندارد و تمامی مراحل در مرورگر ان��ام می‌شود.</li>
-            <li><strong>API Endpoints:</strong> تمامی درخواست‌ها باید به مسیر <code>/api/*</code> ارسال شوند.</li>
+            <li><strong>API Endpoints:</strong> تمامی درخواست‌ها باید به مسیر <code>/api/*</code> ارسال ��وند.</li>
           </ul>
           <div className="mt-8 p-6 bg-zinc-900 text-zinc-100 rounded-2xl overflow-hidden shadow-xl" dir="ltr">
             <p className="text-xs text-zinc-500 mb-2 font-mono uppercase tracking-widest">Build Command</p>

@@ -9,7 +9,7 @@ export function DocsIndexPage() {
   const sections = [
     {
       title: 'راهنمای عمومی',
-      desc: 'آشنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سهمیه‌بندی فضا.',
+      desc: '��شنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سهمیه‌بندی فضا.',
       icon: BookOpen,
       href: '/docs/general',
       color: 'text-blue-500',
@@ -17,7 +17,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'پنل مدیریت (CLI)',
-      desc: 'مرجع کامل دستورات مدیریت کاربران، پوژ و تنظیمات لحظه‌ای سرور.',
+      desc: 'مرجع کامل دستورات مدیریت کاربران، پروژه و تنظیمات لحظه‌ای سرور.',
       icon: Terminal,
       href: '/docs/admin',
       color: 'text-green-500',
@@ -25,7 +25,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'سفارشی‌سازی وب',
-      desc: 'نحوه تغییر ظاهر این رابط کاربری و تزریق آن به سرور MadMail.',
+      desc: 'نحوه تغییر ظاهر ��ین رابط کاربری و تزریق آن به سرور MadMail.',
       icon: Code,
       href: '/docs/custom-html',
       color: 'text-purple-500',
@@ -33,7 +33,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'تنظیمات پایگاه داده',
-      desc: 'پیکربندی SQLite، PostgreSQL و MySQL بای ذخیره‌سازی دائمی.',
+      desc: 'پیکربندی SQLite، PostgreSQL و MySQL برای ذخیره‌سازی دائمی.',
       icon: Database,
       href: '/docs/database',
       color: 'text-amber-500',
@@ -78,17 +78,17 @@ export function DocsIndexPage() {
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <ShieldCheck className="w-6 h-6 text-primary" />
             <h3 className="font-bold">امنیت بومی</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض بای حداکثر امنیت.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض برای حداکثر امنیت.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <Zap className="w-6 h-6 text-primary" />
             <h3 className="font-bold">راه‌اندازی آنی</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک دستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک ��ستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <BookOpen className="w-6 h-6 text-primary" />
-            <h3 className="font-bold">متن‌باز</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و ا��کان مشارکت در توسعه پروژه.</p>
+            <h3 className="font-bold">امکان مشارکت</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و امکان مشارکت در توسعه پروژه.</p>
           </div>
         </div>
       </div>

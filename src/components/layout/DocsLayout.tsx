@@ -21,7 +21,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             <nav className="hidden md:flex items-center gap-6">
               <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
                 <Home className="h-4 w-4" />
-                بازگشت ب�� سایت
+                بازگشت به سایت
               </Link>
               <Link
                 to="/docs"

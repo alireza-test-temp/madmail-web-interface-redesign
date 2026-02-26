@@ -42,7 +42,7 @@ export function ShareContactPage() {
       });
       setShareResult(data);
       setState('success');
-      toast.success('لینک اشتراک با موفقیت ایجاد شد');
+      toast.success('لینک ��شتراک با موفقیت ایجاد شد');
     } catch (err) {
       setState('idle');
       toast.error('خطا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
@@ -63,14 +63,14 @@ export function ShareContactPage() {
     <AppLayout>
       <div className="max-w-2xl mx-auto space-y-8 px-4">
         <header className="text-center space-y-3">
-          <motion.div 
+          <motion.div
             initial={{ rotate: -10, opacity: 0 }}
             animate={{ rotate: 0, opacity: 1 }}
             className="inline-flex p-3 rounded-2xl bg-primary/10 text-primary"
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک‌گذاری تماس</h1>
+          <h1 className="text-3xl font-black">اشتراک‌گذاری ��ماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">
@@ -84,7 +84,7 @@ export function ShareContactPage() {
                   </CardHeader>
                   <CardContent className="space-y-5">
                     <div className="space-y-2">
-                      <Label htmlFor="name">نام نمایشی (اختیاری)</Label>
+                      <Label htmlFor="name">��ام نمایشی (اختیاری)</Label>
                       <Input
                         id="name"
                         placeholder="مثلاً: محمد علی"
@@ -157,7 +157,7 @@ export function ShareContactPage() {
                 <CardFooter className="flex flex-col sm:flex-row gap-3">
                   <Button className="flex-1 h-12 gap-2" onClick={() => navigate(`/${shareResult?.slug}`)}>
                     <ExternalLink className="w-5 h-5" />
-                    مشاهده صفحه ��ماس
+                    مشاهده صفحه تماس
                   </Button>
                   <Button variant="outline" className="flex-1 h-12" onClick={() => { setState('idle'); setFormData({ name: '', slug: '', url: '' }); }}>
                     ایجاد لینک جدید
