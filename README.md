@@ -1,6 +1,6 @@
 # Cloudflare Workers Full-Stack Chat Demo
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/alireza-test-temp/madmail-web-interface-redesign)
 
 A production-ready full-stack chat application built with Cloudflare Workers, Durable Objects for scalable entity storage (Users, Chats, Messages), React, Vite, Tailwind CSS, and shadcn/ui. Demonstrates real-time messaging, indexed entity listing, CRUD operations, and seamless deployment to Cloudflare's global edge network.
 
@@ -94,7 +94,7 @@ Configure via `wrangler.jsonc`:
 - Durable Objects: `GlobalDurableObject`
 - Migrations: SQLite-backed storage
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/alireza-test-temp/madmail-web-interface-redesign)
 
 ## License
 
