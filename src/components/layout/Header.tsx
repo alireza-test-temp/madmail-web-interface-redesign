@@ -15,8 +15,8 @@ export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'خانه', path: '/', icon: Home },
-    { name: 'اشتراک‌گذاری', path: '/share', icon: Share2 },
-    { name: '��اه‌اندازی', path: '/deploy', icon: Settings },
+    { name: 'اشتراک‌گذا��ی', path: '/share', icon: Share2 },
+    { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
     { name: 'اطلاعات', path: '/info', icon: Info },
     { name: 'امنیت', path: '/security', icon: Shield },
   ];

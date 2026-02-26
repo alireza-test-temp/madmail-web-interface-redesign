@@ -17,7 +17,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'پنل مدیریت (CLI)',
-      desc: 'مرجع کامل دستورات مدیریت کاربران، پروژه و تنظیمات لحظه‌ای سرور.',
+      desc: 'مرجع کامل دستورات مدیریت کاربران�� پروژه و تنظیمات لحظه‌ای سرور.',
       icon: Terminal,
       href: '/docs/admin',
       color: 'text-green-500',
@@ -25,7 +25,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'سفارشی‌سازی وب',
-      desc: '��حوه تغییر ظاهر این رابط کاربری و تزریق آن به سرور MadMail.',
+      desc: 'نحوه تغییر ظاهر این رابط کاربری و تزریق آن به سرور MadMail.',
       icon: Code,
       href: '/docs/custom-html',
       color: 'text-purple-500',
@@ -44,7 +44,7 @@ export function DocsIndexPage() {
     <DocsLayout>
       <div className="space-y-12">
         <header className="max-w-3xl space-y-4">
-          <h1 className="text-4xl md:text-5xl font-black text-foreground">مرکز دانش <span className="text-primary">MadMail</span></h1>
+          <h1 className="text-4xl md:text-5xl font-black text-foreground">مرکز د��نش <span className="text-primary">MadMail</span></h1>
           <p className="text-muted-foreground text-lg leading-relaxed">
             همه چیز درباره راه‌اندازی، مدیریت و شخصی‌سازی سرویس پیام‌رسان دلتا‌چت شما در یک جا.
           </p>
@@ -77,7 +77,7 @@ export function DocsIndexPage() {
         <div className="grid md:grid-cols-3 gap-6 pt-8">
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <ShieldCheck className="w-6 h-6 text-primary" />
-            <h3 className="font-bold">امنیت ب��می</h3>
+            <h3 className="font-bold">امنیت بومی</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض برای حداکثر امنیت.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">

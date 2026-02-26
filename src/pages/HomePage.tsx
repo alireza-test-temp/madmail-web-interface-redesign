@@ -26,7 +26,7 @@ export function HomePage() {
         const email = formatEmail(user, madConfig.mailDomain);
         setCreds({ email, pass });
         setState('success');
-        toast.success('حساب با م��فقیت ایجاد شد');
+        toast.success('ح��اب با موفقیت ایجاد شد');
       } else {
         const response = await api<Account>('/api/users', {
           method: 'POST',
@@ -59,7 +59,7 @@ export function HomePage() {
   const qrCodeSection = useMemo(() => (
     <QRCodeDisplay
       value={loginLink}
-      label="این کد را با DeltaChat اسکن کنید"
+      label="این کد را ��ا DeltaChat اسکن کنید"
     />
   ), [loginLink]);
   const handleOpenDeltaChat = async () => {
@@ -83,7 +83,7 @@ export function HomePage() {
             سرویس پیام‌رسان <span className="text-primary">MadMail</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            یک سرور DeltaChat امن و خصوصی برای ارتباطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
+            یک سرور DeltaChat امن و ��صوصی برای ارتباطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
           </p>
         </header>
         <AnimatePresence mode="wait">
@@ -99,7 +99,7 @@ export function HomePage() {
                 <CardHeader className="pb-4">
                   <CardTitle>ایجاد حساب جدید</CardTitle>
                   <CardDescription>
-                    با کلیک روی ��کمه زیر، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
+                    با کلیک روی دکمه زی��، یک آدرس ایمیل اختصاصی برای استفاده در DeltaChat دریافت کنید.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>

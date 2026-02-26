@@ -24,7 +24,7 @@ export function ShareContactPage() {
     e.preventDefault();
     const trimmedUrl = formData.url.trim();
     if (!trimmedUrl.startsWith('https://i.delta.chat/#')) {
-      toast.error('لینک دعوت باید با https://i.delta.chat/# شروع شود');
+      toast.error('لینک دع��ت باید با https://i.delta.chat/# شروع شود');
       return;
     }
     const sanitizedSlug = formData.slug.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
@@ -44,10 +44,10 @@ export function ShareContactPage() {
       });
       setShareResult(data);
       setState('success');
-      toast.success('لینک اشتراک با موفقیت ایجاد شد');
+      toast.success('لینک اشتراک با م��فقیت ایجاد شد');
     } catch (err) {
       setState('idle');
-      toast.error('��طا در ایجاد لینک. احتمالاً ای�� نام کوتاه قبلاً گرفته شده است.');
+      toast.error('خطا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
     }
   };
   const shareUrl = shareResult ? `${window.location.origin}/${shareResult.slug}` : '';
@@ -72,7 +72,7 @@ export function ShareContactPage() {
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک‌گ��اری تماس</h1>
+          <h1 className="text-3xl font-black">اشتراک‌گذاری تماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">
@@ -82,11 +82,11 @@ export function ShareContactPage() {
                 <form onSubmit={handleSubmit}>
                   <CardHeader>
                     <CardTitle>ساخت لینک جدید</CardTitle>
-                    <CardDescription>اطلاعات تماس خود را وار�� کنید تا لینک کوتاه ساخته شود.</CardDescription>
+                    <CardDescription>اطلاعات تماس خود را وارد کنید تا لینک کوتاه ساخته شود.</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name">��ام نمایشی (اختیاری)</Label>
+                      <Label htmlFor="name">نام نمایشی (اختیاری)</Label>
                       <Input
                         id="name"
                         placeholder="مثلاً: محمد علی"
@@ -110,7 +110,7 @@ export function ShareContactPage() {
                         />
                         <Button type="button" variant="outline" className="h-12 px-4 gap-2" onClick={handleRandomSlug}>
                           <RefreshCw className="w-4 h-4" />
-                          تصادفی
+                          تصاد��ی
                         </Button>
                       </div>
                       <p className="text-[11px] text-muted-foreground font-mono" dir="ltr">
@@ -129,7 +129,7 @@ export function ShareContactPage() {
                         onChange={e => setFormData(p => ({ ...p, url: e.target.value }))}
                       />
                       <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-dashed text-xs text-muted-foreground space-y-2">
-                        <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> مراحل دریافت لینک در DeltaChat:</p>
+                        <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> م��احل دریافت لینک در DeltaChat:</p>
                         <ol className="list-decimal list-inside space-y-1 pr-1">
                           <li>وارد بخش تنظیمات (Settings) شوید.</li>
                           <li>آیکون QR در کنار نام خود را لمس کنید.</li>

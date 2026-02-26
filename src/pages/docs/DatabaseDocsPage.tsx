@@ -6,8 +6,8 @@ export function DatabaseDocsPage() {
     <DocsLayout>
       <div className="space-y-10">
         <header className="space-y-4">
-          <h1 className="text-4xl font-black">پیکربندی پایگاه داده</h1>
-          <p className="text-muted-foreground text-lg">انتخاب و تنظیم موتور ذ��یره‌سازی داده‌ها در MadMail.</p>
+          <h1 className="text-4xl font-black">پیکربندی پای��اه داده</h1>
+          <p className="text-muted-foreground text-lg">انتخاب و تنظیم موتور ذخیره‌سازی داده‌ها در MadMail.</p>
         </header>
         <section className="space-y-8">
           <div className="grid gap-6">
@@ -16,7 +16,7 @@ export function DatabaseDocsPage() {
                 <Database className="w-6 h-6 text-primary" />
                 <h2 className="text-xl font-bold">SQLite (پیش‌فرض)</h2>
               </div>
-              <p className="text-muted-foreground text-sm">ایده‌آل برای سرورهای کوچک و تست. نیاز به نصب هیچ سرویس اضافه‌ای ندارد.</p>
+              <p className="text-muted-foreground text-sm">ایده‌آل برای سرورهای کو��ک و تست. نیاز به نصب هیچ سرویس اضافه‌ای ندارد.</p>
               <pre className="p-4 bg-muted rounded-lg text-xs font-mono" dir="ltr">
                 [database]{"\n"}
                 driver = "sqlite3"{"\n"}
@@ -42,8 +42,8 @@ export function DatabaseDocsPage() {
               مهاجرت داده‌ها (Migrations)
             </h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              MadMail از <strong>GORM</strong> برای مدیریت پایگاه داده استفاده می‌کند. تمامی جداول و تغییرات ساختاری در هنگام
-              اولین اجر�� به صورت خودکار ایجاد می‌شوند. نیازی به اجرای اسکریپت‌های SQL دستی نیست.
+              MadMail از <strong>GORM</strong> ��رای مدیریت پایگاه داده استفاده می‌کند. تمامی جداول و تغییرات ساختاری در هنگام
+              اولین اجرا به صورت خودکار ایجاد می‌شوند. نیازی به اجرای اسکریپت‌های SQL دستی نیست.
             </p>
           </div>
           <div className="flex items-start gap-4 p-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl">

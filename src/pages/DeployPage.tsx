@@ -17,7 +17,7 @@ export function DeployPage() {
     try {
       await navigator.clipboard.writeText(text);
       setFn(true);
-      toast.success('دست��ر کپی شد');
+      toast.success('دستور کپی شد');
       setTimeout(() => setFn(false), 2000);
     } catch (err) {
       toast.error('خطا در کپی');
@@ -45,7 +45,7 @@ export function DeployPage() {
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Download className="w-6 h-6 text-primary" />
-                <CardTitle>نصب و اجرای اولی��</CardTitle>
+                <CardTitle>نصب و اجرای ا��لیه</CardTitle>
               </div>
               <CardDescription>این دستور فایل اجرایی را دریافت کرده و سرویس را استارت می‌کند.</CardDescription>
             </CardHeader>
@@ -71,7 +71,7 @@ export function DeployPage() {
                 <Zap className="w-6 h-6 text-amber-500" />
                 <CardTitle>به‌روزرسانی سریع</CardTitle>
               </div>
-              <CardDescription>برای دریافت آخرین نس��ه‌ها و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
+              <CardDescription>برای دریافت آخرین نسخه‌ها و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="relative group">
@@ -102,7 +102,7 @@ export function DeployPage() {
           </div>
           <Button variant="link" asChild className="gap-2 font-bold group">
             <Link to="/docs">
-              ��هرست مستندات
+              فهرست مستندات
               <ArrowRight className="w-4 h-4 group-hover:translate-x-[-4px] transition-transform" />
             </Link>
           </Button>

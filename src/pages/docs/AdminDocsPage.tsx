@@ -12,9 +12,9 @@ export function AdminDocsPage() {
     { cmd: './madmail reg open', desc: 'باز کردن ثبت‌نام عمومی برای همه.' },
     { cmd: './madmail reg close', desc: 'بستن ثبت‌نام (فقط مدیریت ��ی‌تواند کاربر بسازد).' },
     { cmd: './madmail jit on', desc: 'فعال‌سازی تولید حساب آنی (JIT).' },
-    { cmd: './madmail turn on', desc: 'فعال‌سازی سرور TURN برای تماس‌های تصوی��ی/صوتی بهتر.' },
-    { cmd: './madmail stealth on', desc: 'حالت مخفی؛ سرور به درخواست‌های پینگ پاسخ نمی‌دهد.' },
-    { cmd: './madmail purge all', desc: 'پاکسازی تمامی ��یام‌های منقضی شده از دیتابیس.' },
+    { cmd: './madmail turn on', desc: 'فعال‌سازی سرور TURN برای تماس‌های تصویری/صوتی بهتر.' },
+    { cmd: './madmail stealth on', desc: 'حالت مخفی؛ سرور به درخو��ست‌های پینگ پاسخ نمی‌دهد.' },
+    { cmd: './madmail purge all', desc: 'پاکسازی تمامی پیام‌های منقضی شده از دیتابیس.' },
   ];
   const handleCopy = async (text: string, idx: number) => {
     await navigator.clipboard.writeText(text);
