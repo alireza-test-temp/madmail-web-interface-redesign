@@ -1,5 +1,6 @@
 export interface MadMailConfig {
   mailDomain: string;
+  webDomain: string;
   registrationOpen: boolean;
   jitEnabled: boolean;
   publicIP: string;
@@ -13,6 +14,7 @@ export interface MadMailConfig {
 // by the server-side template engine. Here we simulate that for the SPA.
 export const madConfig: MadMailConfig = {
   mailDomain: "madmail.example.com",
+  webDomain: "madmail.example.com",
   registrationOpen: true,
   jitEnabled: true,
   publicIP: "1.2.3.4",

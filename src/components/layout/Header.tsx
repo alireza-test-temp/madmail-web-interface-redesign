@@ -7,7 +7,9 @@ export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'خانه', path: '/', icon: Home },
+    { name: 'اشتراک‌گذاری', path: '/share', icon: Share2 },
     { name: 'اطلاعات', path: '/info', icon: Info },
+    { name: 'امنیت', path: '/security', icon: Shield },
   ];
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

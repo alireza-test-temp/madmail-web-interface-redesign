@@ -13,6 +13,9 @@ import { RouteErrorBoundary } from '@/components/RouteErrorBoundary';
 import '@/index.css'
 import { HomePage } from '@/pages/HomePage'
 import { InfoPage } from '@/pages/InfoPage'
+import { SecurityPage } from '@/pages/SecurityPage'
+import { ShareContactPage } from '@/pages/ShareContactPage'
+import { ContactViewPage } from '@/pages/ContactViewPage'
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -23,6 +26,21 @@ const router = createBrowserRouter([
   {
     path: "/info",
     element: <InfoPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/security",
+    element: <SecurityPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/share",
+    element: <ShareContactPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/:slug",
+    element: <ContactViewPage />,
     errorElement: <RouteErrorBoundary />,
   },
 ]);
