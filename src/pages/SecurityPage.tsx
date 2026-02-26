@@ -7,10 +7,10 @@ import { ShadowsocksCard } from '@/components/ShadowsocksCard';
 import { motion } from 'framer-motion';
 export function SecurityPage() {
   const securityTips = [
-    "همیشه اثر انگشت PGP را با گیرنده به صورت حضوری یا کانال امن تأیید کنید.",
-    "از پروکسی Shadowsocks برای مخفی کردن ترافیک استفاده کنید.",
+    "همیشه اثر انگشت PGP را با گیرنده به صورت حضور�� یا کانال امن تأیید کنید.",
+    "از پروکسی Shadowsocks برای مخفی کردن ترافیک ��ستفاده کنید.",
     "هرگز لینک‌های ناشناخته را بدون بررسی باز نکنید.",
-    "DeltaChat را همیشه به‌روز نگه دارید.",
+    "DeltaChat را همیشه به‌روز ن��ه دارید.",
     "از WiFi عمومی برای ارتباطات حساس اجتناب کنید."
   ];
   const features = [
@@ -31,7 +31,7 @@ export function SecurityPage() {
           </div>
           <h1 className="text-4xl font-black tracking-tight">امنیت و حریم خصوصی</h1>
           <p className="text-muted-foreground text-lg">
-            ارتباطات شما در MadMail تحت بالاترین استانداردهای امنیتی محافظت می‌شود.
+            ارتباطات شما در MadMail تحت ��الاترین استانداردهای امنیتی محافظت می‌شود.
           </p>
         </motion.header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -78,8 +78,8 @@ export function SecurityPage() {
         )}
         <footer className="text-center p-6 bg-primary/5 rounded-xl border border-dashed border-primary/20">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            ما هیچ‌��ونه اطلاعات شخصی یا محتوای پیام‌های شما را ذخیره نمی‌کنیم.
-            پیام‌ها پس از {madConfig.retentionDays} روز به طور کامل از سرور حذف ��واهند شد.
+            ما هیچ‌گونه اطلاعات شخصی یا محتوای پیام‌های شما را ذخیره نمی‌کنیم.
+            ��یام‌ها پس از {madConfig.retentionDays} روز به طور کامل از سرور ��ذف خواهند شد.
           </p>
         </footer>
       </div>

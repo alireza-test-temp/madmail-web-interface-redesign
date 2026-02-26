@@ -42,10 +42,10 @@ export function ShareContactPage() {
       });
       setShareResult(data);
       setState('success');
-      toast.success('لینک ��شتراک با موفقیت ایجاد شد');
+      toast.success('لینک اشتراک با موفقیت ایجاد شد');
     } catch (err) {
       setState('idle');
-      toast.error('خطا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
+      toast.error('خطا در ایجاد لینک. احتما��اً این نام کوتاه قبلاً گرفته شده است.');
     }
   };
   const shareUrl = shareResult ? `${window.location.origin}/${shareResult.slug}` : '';
@@ -70,7 +70,7 @@ export function ShareContactPage() {
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک‌گذاری ��ماس</h1>
+          <h1 className="text-3xl font-black">اشتراک‌گذاری تماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">

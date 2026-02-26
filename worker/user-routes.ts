@@ -32,9 +32,9 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
     const { name } = (await c.req.json()) as { name?: string };
     const username = generateRandomCredential(8);
     const password = generateRandomCredential(12);
-    const domain = "madmail.example.com"; // In production this comes from env/config
-    const account = await UserEntity.create(c.env, { 
-      id: crypto.randomUUID(), 
+    const domain = "madmail.example.com";
+    const account = await UserEntity.create(c.env, {
+      id: crypto.randomUUID(),
       name: (name?.trim() || username),
       password,
       email: `${username}@${domain}`
@@ -45,7 +45,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.post('/api/share', async (c) => {
     const { name, slug: requestedSlug, url } = (await c.req.json()) as { name?: string; slug?: string; url?: string };
     if (!url || !url.startsWith('https://i.delta.chat/#')) {
-      return bad(c, 'لینک دع��ت معتبر DeltaChat الزامی است');
+      return bad(c, 'لینک دعوت معتبر DeltaChat الزامی است');
     }
     let slug = requestedSlug?.trim().toLowerCase() || generateRandomSlug(8);
     slug = slug.replace(/[^a-z0-9-]/g, '');

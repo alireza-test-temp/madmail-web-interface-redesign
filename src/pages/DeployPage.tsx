@@ -36,7 +36,7 @@ export function DeployPage() {
           </motion.div>
           <h1 className="text-4xl font-black tracking-tight text-foreground">راه‌اندازی سرور MadMail</h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed">
-            ��ا استفاده از دستورات زیر می‌توانید در کمتر از یک دقیقه سرور اختصاصی خود را نصب و راه‌اندازی کنید.
+            با استفاده از دستورات ��یر می‌توانید در کمتر از یک دقیقه سرور اختصاصی خود را نصب و راه‌اندازی کنید.
           </p>
         </header>
         <div className="grid gap-6">
@@ -45,7 +45,7 @@ export function DeployPage() {
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Download className="w-6 h-6 text-primary" />
-                <CardTitle>نصب و ا��رای اولیه</CardTitle>
+                <CardTitle>نصب و اجرای ا��لیه</CardTitle>
               </div>
               <CardDescription>این دستور فایل اجرایی را دریافت کرده و سرویس را استارت می‌کند.</CardDescription>
             </CardHeader>
@@ -69,9 +69,9 @@ export function DeployPage() {
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Zap className="w-6 h-6 text-amber-500" />
-                <CardTitle>به‌روز��سانی سریع</CardTitle>
+                <CardTitle>به‌روزرسانی سریع</CardTitle>
               </div>
-              <CardDescription>برای دریافت آخرین نس��ه‌ها و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
+              <CardDescription>برای دریافت آخرین نسخه‌ها و پچ‌های امنیتی از این دستور استفاده کنید.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="relative group">

@@ -9,7 +9,7 @@ export function DocsIndexPage() {
   const sections = [
     {
       title: 'راهنمای عمومی',
-      desc: '��شنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سهمیه‌بندی فضا.',
+      desc: 'آشنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سهمیه‌بندی فضا.',
       icon: BookOpen,
       href: '/docs/general',
       color: 'text-blue-500',
@@ -25,7 +25,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'سفارشی‌سازی وب',
-      desc: 'نحوه تغییر ظاهر ��ین رابط کاربری و تزریق آن به سرور MadMail.',
+      desc: '��حوه تغییر ظاهر این رابط کاربری و تزریق آن به سرور MadMail.',
       icon: Code,
       href: '/docs/custom-html',
       color: 'text-purple-500',
@@ -77,13 +77,13 @@ export function DocsIndexPage() {
         <div className="grid md:grid-cols-3 gap-6 pt-8">
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <ShieldCheck className="w-6 h-6 text-primary" />
-            <h3 className="font-bold">امنیت بومی</h3>
+            <h3 className="font-bold">امنیت ب��می</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض برای حداکثر امنیت.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <Zap className="w-6 h-6 text-primary" />
             <h3 className="font-bold">راه‌اندازی آنی</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک ��ستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک دستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <BookOpen className="w-6 h-6 text-primary" />
