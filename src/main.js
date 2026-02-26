@@ -25,7 +25,7 @@ function showToast(message, type = 'info') {
 async function copyToClipboard(text) {
     try {
         await navigator.clipboard.writeText(text);
-        showToast('د�� حافظه کپی شد', 'success');
+        showToast('در حافظه کپی شد', 'success');
         return true;
     } catch (err) {
         showToast('خطا در کپی', 'error');
@@ -77,12 +77,12 @@ const Views = {
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>
                 </div>
                 <h1 class="text-4xl font-black sm:text-6xl tracking-tight">سرویس <span class="text-primary">MadMail</span></h1>
-                <p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">ارتباطات آزاد، امن و خصوصی با استفاده از پروت��ل‌های استاندارد.</p>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">ارتباطات آزاد، امن و خصوصی با استفاده از پروتکل‌های استاندارد.</p>
             </header>
             <div id="home-content" class="w-full flex justify-center">
                 <div id="cta-card" class="w-full max-w-md bg-card border-2 rounded-3xl shadow-2xl p-8 space-y-6">
                     <h2 class="text-2xl font-bold">ایجاد حساب جدید</h2>
-                    <p class="text-muted-foreground">��رای شروع، یک آدرس اختصاصی برای DeltaChat دریافت کنید.</p>
+                    <p class="text-muted-foreground">برای شروع، یک آدر�� اختصاصی برای DeltaChat دریافت کنید.</p>
                     <button id="create-acc-btn" class="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">ساخت حساب در ${config.mailDomain}</button>
                 </div>
                 <div id="success-view" class="hidden w-full max-w-4xl grid md:grid-cols-2 gap-10 items-center text-right"></div>
@@ -162,15 +162,15 @@ const Views = {
             <header class="space-y-4">
                 <div class="inline-flex p-5 rounded-3xl bg-primary/10 text-primary shadow-sm"><svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
                 <h1 class="text-4xl font-black">امنیت و حریم خص��صی</h1>
-                <p class="text-xl text-muted-foreground">در اینجا امنیت یک انتخاب نیست، یک استاندارد است.</p>
+                <p class="text-xl text-muted-foreground">در اینجا امنیت یک ��نتخاب نیست، یک استاندارد است.</p>
             </header>
             <div class="grid gap-6">
                 <div class="p-6 bg-card border-2 rounded-2xl text-right">
                     <h3 class="font-bold text-lg mb-2">رمزنگاری Autocrypt</h3>
-                    <p class="text-muted-foreground">تمامی پیام‌ها قبل از خروج از دستگاه شما با کلیدهای PGP رمزنگاری می‌شوند.</p>
+                    <p class="text-muted-foreground">تمامی پیام‌ها قبل از خ��وج از دستگاه شما با کلیدهای PGP رمزنگاری می‌شوند.</p>
                 </div>
                 <div class="p-6 bg-card border-2 rounded-2xl text-right">
-                    <h3 class="font-bold text-lg mb-2">عدم ذخیره‌س��زی آی‌پی</h3>
+                    <h3 class="font-bold text-lg mb-2">عدم ذخیره‌سازی آی‌پی</h3>
                     <p class="text-muted-foreground">ما آدرس‌های IP کاربران را ذخیره نمی‌کنیم و هیچ متادیتایی جمع‌آوری نمی‌شود.</p>
                 </div>
             </div>
@@ -178,25 +178,88 @@ const Views = {
     `,
     Docs: (sub) => {
         const docsNav = `
-            <nav class="flex gap-4 mb-8 overflow-x-auto pb-2 border-b">
-                <a href="/docs" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">اصلی</a>
-                <a href="/docs/general" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">عمومی</a>
-                <a href="/docs/admin" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">مدیریت</a>
-                <a href="/docs/database" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">دیتابیس</a>
-                <a href="/docs/custom" data-link class="text-sm font-bold whitespace-nowrap px-3 py-1 rounded-md hover:bg-accent">سفارشی</a>
+            <nav class="flex gap-2 mb-8 overflow-x-auto pb-2 border-b">
+                <a href="/docs" data-link class="nav-link text-sm font-bold whitespace-nowrap px-4 py-2 rounded-lg hover:bg-accent transition-colors">شاخ��</a>
+                <a href="/docs/general" data-link class="nav-link text-sm font-bold whitespace-nowrap px-4 py-2 rounded-lg hover:bg-accent transition-colors">عمومی</a>
+                <a href="/docs/admin" data-link class="nav-link text-sm font-bold whitespace-nowrap px-4 py-2 rounded-lg hover:bg-accent transition-colors">مدیریت</a>
+                <a href="/docs/database" data-link class="nav-link text-sm font-bold whitespace-nowrap px-4 py-2 rounded-lg hover:bg-accent transition-colors">دیتابیس</a>
+                <a href="/docs/custom" data-link class="nav-link text-sm font-bold whitespace-nowrap px-4 py-2 rounded-lg hover:bg-accent transition-colors">سفارشی</a>
             </nav>
         `;
         let content = '';
         if (sub === 'general') {
-            content = `<h2 class="text-2xl font-bold mb-4">راهنمای ��مومی</h2><p>MadMail یک میل‌سرور سبک است که اختصاصاً برای DeltaChat طراحی شده است. از استانداردهای Autocrypt برای رمزنگاری سرتاسری استفاده می‌کند.</p>`;
+            content = `
+                <article class="prose prose-zinc dark:prose-invert max-w-none">
+                    <h2 class="text-3xl font-black mb-6">راهنمای عمومی</h2>
+                    <p class="text-lg leading-relaxed">MadMail یک میل‌سرور سبک و متمرکز بر حریم خصوصی است که اختصاصاً برای DeltaChat طراحی شده است. برخلاف میل‌سرورهای سنتی، MadMail بر سادگی، سرعت و ��منیت کاربر نهایی تمرکز دارد.</p>
+                    <div class="grid sm:grid-cols-2 gap-6 mt-8">
+                        <div class="p-6 border-2 rounded-2xl bg-card">
+                            <h4 class="font-bold mb-2">رمزنگاری سرتاسری</h4>
+                            <p class="text-sm text-muted-foreground">ا��تفاده از استاندارد Autocrypt برای مدیریت خودکار کلیدهای عمومی و خصوصی PGP بدون دخالت کاربر.</p>
+                        </div>
+                        <div class="p-6 border-2 rounded-2xl bg-card">
+                            <h4 class="font-bold mb-2">حذف خودکار</h4>
+                            <p class="text-sm text-muted-foreground">پیام‌ها پس از ۲۰ روز (قابل تغییر) به طور کامل از دیتابیس حذف می‌شوند تا امنیت بلندمدت تامین ��ود.</p>
+                        </div>
+                    </div>
+                </article>
+            `;
         } else if (sub === 'admin') {
-            content = `<h2 class="text-2xl font-bold mb-4">مدیریت CLI</h2><code class="block p-4 bg-muted rounded-xl mb-4" dir="ltr">./madmail user add user@domain pass</code>`;
+            content = `
+                <article class="space-y-6">
+                    <h2 class="text-3xl font-black">مدیریت از طریق CLI</h2>
+                    <p class="text-muted-foreground">تمامی جنبه‌های سرور از طریق دستورات خط فرمان قابل کنترل هستند.</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-zinc-900 text-zinc-100 rounded-xl font-mono text-sm border shadow-inner">
+                            <p class="text-zinc-500 mb-1">ساخت کاربر:</p>
+                            <code dir="ltr">./madmail user add user@domain pass</code>
+                        </div>
+                        <div class="p-4 bg-zinc-900 text-zinc-100 rounded-xl font-mono text-sm border shadow-inner">
+                            <p class="text-zinc-500 mb-1">باز کردن ثبت‌نام:</p>
+                            <code dir="ltr">./madmail reg open</code>
+                        </div>
+                        <div class="p-4 bg-zinc-900 text-zinc-100 rounded-xl font-mono text-sm border shadow-inner">
+                            <p class="text-zinc-500 mb-1">فعال‌سازی JIT:</p>
+                            <code dir="ltr">./madmail jit on</code>
+                        </div>
+                    </div>
+                </article>
+            `;
         } else if (sub === 'database') {
-            content = `<h2 class="text-2xl font-bold mb-4">دیتابیس</h2><p>از SQLite3 به صورت ��یش‌فرض و PostgreSQL برای مقیاس‌پذیری بالا پشتیبانی می‌شود.</p>`;
+            content = `
+                <article class="space-y-6">
+                    <h2 class="text-3xl font-black">پیکربندی دیتابیس</h2>
+                    <p>MadMail از دو موتور اصلی برای ذخیره‌سازی داده‌ها پشتیبانی می‌کند:</p>
+                    <div class="grid gap-4">
+                        <div class="p-6 border-2 rounded-2xl bg-card">
+                            <h4 class="font-bold text-primary">SQLite3</h4>
+                            <p class="text-sm text-muted-foreground">پیش‌فرض و مناسب برای اک��ر نصب‌ها. بدون نیاز به پیکربندی خارجی.</p>
+                        </div>
+                        <div class="p-6 border-2 rounded-2xl bg-card">
+                            <h4 class="font-bold text-blue-600">PostgreSQL</h4>
+                            <p class="text-sm text-muted-foreground">توصیه شده برای سرورهایی ب�� بیش از ۱۰۰۰۰ کاربر فعال.</p>
+                        </div>
+                    </div>
+                </article>
+            `;
         } else if (sub === 'custom') {
-            content = `<h2 class="text-2xl font-bold mb-4">سفارشی‌سازی</h2><p>شما می‌توانی�� قالب‌های HTML/CSS خود را در پوشه static ق��ار داده و ظاهر سرور را تغییر دهید.</p>`;
+            content = `
+                <article class="space-y-6">
+                    <h2 class="text-3xl font-black">سفارشی‌سازی ظاهر</h2>
+                    <p>شما می‌توانید رابط کاربری وب را کاملاً تغییر دهید. MadMail به دنبال فایل‌های HTML در پوشه <code>static</code> می‌گردد.</p>
+                    <div class="p-6 bg-muted/30 border-2 border-dashed rounded-3xl">
+                        <p class="text-sm font-medium">نکته برای توسعه‌دهندگان:</p>
+                        <p class="text-xs text-muted-foreground mt-2 leading-relaxed">این پروژه از یک SPA با Vanilla JS استفاده می‌کند. تمامی داده‌های سرور در <code>window.__data__</code> تزریق می‌شوند.</p>
+                    </div>
+                </article>
+            `;
         } else {
-            content = `<h2 class="text-2xl font-bold mb-4">مستندات MadMail</h2><p>به راهنمای جامع خوش آمدید. برای انتخاب بخش مورد نظر از منوی بالا استفاده کنید.</p>`;
+            content = `
+                <div class="text-center py-10 space-y-4">
+                    <h2 class="text-4xl font-black">مستندات MadMail</h2>
+                    <p class="text-xl text-muted-foreground">برای شروع مطالعه، یکی از بخش‌های منوی بالا را انتخاب کنید.</p>
+                </div>
+            `;
         }
         return `<div class="max-w-4xl mx-auto animate-fade-in">${docsNav}${content}</div>`;
     },
@@ -209,18 +272,19 @@ const Views = {
                 <h1 class="text-3xl font-black">${contact.name || 'کاربر ناشناس'}</h1>
                 <p class="text-muted-foreground">می‌خواهید با این شخص در DeltaChat گفتگو کنید؟</p>
             </div>
-            <button onclick="tryOpenProtocol('${contact.url}')" class="block w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-xl">باز کردن در DeltaChat</button>
-            <div class="p-4 bg-muted/50 rounded-xl border border-dashed text-xs font-mono overflow-hidden">
-                <code class="truncate block" dir="ltr">${contact.url}</code>
-                <button onclick="copyToClipboard('${contact.url}')" class="mt-2 text-primary font-sans font-bold">کپی لینک مستقیم</button>
+            <button onclick="tryOpenProtocol('${contact.url}')" class="block w-full py-5 bg-primary text-white rounded-2xl font-bold text-xl shadow-xl hover:scale-[1.02] transition-transform active:scale-[0.98]">باز کردن در DeltaChat</button>
+            <div class="p-6 bg-muted/50 rounded-2xl border border-dashed space-y-3">
+                <p class="text-xs text-muted-foreground uppercase font-bold tracking-widest">لینک مستقیم دعوت</p>
+                <code class="block text-xs font-mono break-all bg-background p-3 rounded-lg border" dir="ltr">${contact.url}</code>
+                <button onclick="copyToClipboard('${contact.url}')" class="text-primary font-bold hover:underline">کپی ��ینک</button>
             </div>
         </div>
     `,
     NotFound: () => `
-        <div class="py-20 text-center animate-fade-in">
-            <h1 class="text-8xl font-black text-primary mb-4">۴۰۴</h1>
-            <p class="text-2xl text-muted-foreground">متأسفانه ص��حه مورد نظر یافت نشد.</p>
-            <a href="/" data-link class="inline-block mt-8 px-8 py-3 bg-primary text-white rounded-xl font-bold">بازگشت به ��انه</a>
+        <div class="py-20 text-center animate-fade-in space-y-6">
+            <h1 class="text-9xl font-black text-primary/20">۴۰۴</h1>
+            <p class="text-2xl font-bold text-muted-foreground">متأسفانه صفحه مورد نظر یافت نشد.</p>
+            <a href="/" data-link class="inline-block px-8 py-4 bg-primary text-white rounded-2xl font-bold shadow-lg hover:shadow-primary/20 transition-all">بازگشت به خانه</a>
         </div>
     `
 };
@@ -266,11 +330,16 @@ async function handleRoute() {
         viewHTML = Views.NotFound();
     }
     app.innerHTML = viewHTML;
+    // Update active state for all links (Desktop, Mobile, Docs)
     document.querySelectorAll('.nav-link').forEach(link => {
         const href = link.getAttribute('href');
-        const isActive = (href === path) || (href === '/' && (path === '/' || path === '/home'));
+        // Handle precise matching or prefix matching for docs
+        const isActive = (href === path) || 
+                         (href === '/' && (path === '/' || path === '/home')) ||
+                         (href !== '/' && path.startsWith(href) && href.includes('/docs'));
         link.classList.toggle('text-primary', isActive);
         link.classList.toggle('bg-accent/50', isActive);
+        if (link.tagName === 'A' && isActive) link.classList.add('active');
     });
     if (path === '/' || path === '/home') initHomeLogic();
     if (path === '/share') initShareLogic();
@@ -281,7 +350,7 @@ function initHomeLogic() {
     if (!btn) return;
     btn.onclick = async () => {
         btn.disabled = true;
-        btn.innerHTML = '<div class="flex items-center justify-center gap-2"><div class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div><span>درحال ساخ��...</span></div>';
+        btn.innerHTML = '<div class="flex items-center justify-center gap-2"><div class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div><span>درحال ساخت...</span></div>';
         try {
             let creds;
             if (config.jitEnabled) {
@@ -299,34 +368,37 @@ function initHomeLogic() {
             success.classList.remove('hidden');
             success.innerHTML = `
                 <div class="bg-card border-2 rounded-3xl p-8 shadow-2xl flex flex-col items-center gap-4">
-                    <canvas id="qr-canvas"></canvas>
-                    <p class="text-sm font-medium text-muted-foreground">اسکن با دوربین DeltaChat</p>
+                    <canvas id="qr-canvas" class="max-w-full h-auto"></canvas>
+                    <p class="text-sm font-bold text-muted-foreground mt-2">اسکن با دور��ین DeltaChat</p>
                 </div>
                 <div class="space-y-6">
                     <div class="space-y-2">
-                        <div class="flex items-center gap-2 text-green-600 font-bold text-xl"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>حساب شما آماده است!</div>
-                        <p class="text-muted-foreground">اطلاعات ورود خود را برای استفاده در دستگاه‌های دیگر ��خیره کنید.</p>
+                        <div class="flex items-center gap-2 text-green-600 font-black text-2xl">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                            حساب شما ��ماده است!
+                        </div>
+                        <p class="text-muted-foreground font-medium">اطلاعات ورود خود را برای استفاده در دستگاه‌های دیگر ذخیره کنید.</p>
                     </div>
-                    <div class="p-6 bg-muted/50 rounded-2xl space-y-4 font-mono text-left border" dir="ltr">
-                        <div><p class="text-xs text-muted-foreground uppercase mb-1 font-sans">EMAIL</p><p class="text-lg select-all">${creds.email}</p></div>
-                        <div><p class="text-xs text-muted-foreground uppercase mb-1 font-sans">PASSWORD</p><p class="text-lg select-all">${creds.pass}</p></div>
+                    <div class="p-6 bg-muted/50 rounded-2xl space-y-4 font-mono text-left border shadow-inner" dir="ltr">
+                        <div><p class="text-xs text-muted-foreground font-sans font-bold uppercase mb-1">EMAIL</p><p class="text-lg select-all text-primary font-bold">${creds.email}</p></div>
+                        <div><p class="text-xs text-muted-foreground font-sans font-bold uppercase mb-1">PASSWORD</p><p class="text-lg select-all font-bold">${creds.pass}</p></div>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <button id="dc-open-btn" class="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform">ورود مستقیم به DeltaChat</button>
-                        <button id="copy-all-btn" class="w-full py-2 text-muted-foreground hover:text-foreground">کپی اطلاعات</button>
+                        <button id="dc-open-btn" class="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform active:scale-[0.98]">ورود مستقیم به DeltaChat</button>
+                        <button id="copy-all-btn" class="w-full py-2 text-muted-foreground hover:text-foreground font-bold transition-colors">کپی تمامی اطلاعات</button>
                     </div>
                 </div>
             `;
-            new QRious({ element: document.getElementById('qr-canvas'), value: dcLink, size: 240, level: 'H' });
+            new QRious({ element: document.getElementById('qr-canvas'), value: dcLink, size: 280, level: 'H' });
             document.getElementById('dc-open-btn').onclick = async () => {
                 const opened = await tryOpenProtocol(dcLink);
-                if (!opened) showToast('DeltaChat باز نشد. آن را نصب کنید.');
+                if (!opened) showToast('DeltaChat باز نشد. مطمئن شوید برنامه نصب است.', 'error');
             };
             document.getElementById('copy-all-btn').onclick = () => copyToClipboard(`Email: ${creds.email}\nPass: ${creds.pass}`);
         } catch (err) {
-            showToast('خ��ا در ایجاد حساب', 'error');
+            showToast('خطا در ایجاد حساب. لطفاً دوباره تلاش کنید.', 'error');
             btn.disabled = false;
-            btn.innerHTML = 'ت��اش دوباره';
+            btn.innerHTML = 'تلاش دوباره';
         }
     };
 }
@@ -340,28 +412,33 @@ function initShareLogic() {
         const name = document.getElementById('share-name').value;
         const url = document.getElementById('share-url').value;
         if (!url.startsWith('https://i.delta.chat/#')) {
-            showToast('لینک دعوت DeltaChat نام��تبر است', 'error');
+            showToast('لینک دعوت DeltaChat نامعتبر ��ست', 'error');
             return;
         }
         btn.disabled = true;
-        btn.innerHTML = 'درحال ایجاد...';
+        btn.innerHTML = '<div class="flex items-center justify-center gap-2"><div class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div><span>درحال ایجاد...</span></div>';
         try {
             const res = await apiFetch('/api/share', { method: 'POST', body: JSON.stringify({ name, url }) });
             const shareUrl = `${window.location.origin}/${res.slug}`;
             document.getElementById('share-form-container').innerHTML = `
-                <div class="text-center space-y-6 animate-fade-in">
-                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
-                    <h3 class="text-2xl font-bold">لینک شما ساخته شد!</h3>
-                    <div class="p-4 bg-muted/50 rounded-xl border flex items-center gap-3">
-                        <code class="text-primary font-bold flex-1 truncate text-left" dir="ltr">${shareUrl}</code>
-                        <button onclick="copyToClipboard('${shareUrl}')" class="text-primary font-bold">کپی</button>
+                <div class="text-center space-y-6 animate-fade-in py-6">
+                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <button onclick="window.location.reload()" class="w-full py-3 border-2 rounded-xl hover:bg-accent transition-colors">ساخت لینک دیگر</button>
+                    <div class="space-y-2">
+                        <h3 class="text-2xl font-black">لینک شما ساخته شد!</h3>
+                        <p class="text-muted-foreground">این لینک را برای دوستا�� خود بفرستید تا با شما در تماس باشند.</p>
+                    </div>
+                    <div class="p-6 bg-muted/50 rounded-2xl border flex items-center gap-4 shadow-inner">
+                        <code class="text-primary font-black flex-1 truncate text-left" dir="ltr">${shareUrl}</code>
+                        <button onclick="copyToClipboard('${shareUrl}')" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-transform">کپی</button>
+                    </div>
+                    <button onclick="window.location.reload()" class="w-full py-4 border-2 rounded-2xl hover:bg-accent font-bold transition-all">ساخت لینک جدید</button>
                 </div>
             `;
             showToast('لینک با موفقیت ساخته شد', 'success');
         } catch (err) {
-            showToast('خطا در ساخت لینک', 'error');
+            showToast('خطا در ساخت لینک. دوباره تلاش کنید.', 'error');
             btn.disabled = false;
             btn.innerHTML = 'تلاش دوباره';
         }

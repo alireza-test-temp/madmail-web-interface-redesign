@@ -20,7 +20,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   // ALIAS ROUTES FOR GO SPECIFICATION
   app.post('/new', async (c) => createUser(c));
   app.post('/share', async (c) => createShare(c));
-  app.get('/qr', async (c) => ok(c, { message: '��ز پروتکل dclogin: برای نمایش QR کد استفاده کنید' }));
+  app.get('/qr', async (c) => ok(c, { message: 'از پروتکل dclogin: برای نمایش QR کد استفاده کنید' }));
   // ORIGINAL API ROUTES
   app.get('/api/users', async (c) => {
     await UserEntity.ensureSeed(c.env);
@@ -47,8 +47,8 @@ async function createUser(c: any) {
   const { name } = (await c.req.json()) as { name?: string };
   const username = secureRandomString(8);
   const password = secureRandomString(12);
-  // Synchronized with src/lib/config.ts simulation
-  const domain = "madmail.example.com"; 
+  // Synchronized with frontend simulation
+  const domain = "madmail.example.com";
   const account = await UserEntity.create(c.env, {
     id: crypto.randomUUID(),
     name: (name?.trim() || username),
