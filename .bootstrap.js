@@ -81,7 +81,8 @@ function runSetupCommands() {
     "bun add qrcode.react@^3.1.0",
     "bun install qrcode.react",
     "bun add qrcode-generator",
-    "bun add qrious"
+    "bun add qrious",
+    "bun remove react react-dom react-router-dom lucide-react framer-motion @radix-ui/react-dialog @radix-ui/react-sheet sonner"
 ];
     
     if (commands.length === 0) {
