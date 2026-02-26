@@ -73,6 +73,7 @@ const router = createBrowserRouter([
     element: <DatabaseDocsPage />,
     errorElement: <RouteErrorBoundary />,
   },
+  // Dynamic catch-all slug must be at the end to prevent collisions with static paths
   {
     path: "/:slug",
     element: <ContactViewPage />,

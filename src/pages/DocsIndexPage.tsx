@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { BookOpen, Terminal, Code, Database, ChevronLeft, ShieldCheck, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 export function DocsIndexPage() {
   const sections = [
     {
@@ -16,7 +17,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'پنل مدیریت (CLI)',
-      desc: 'مرج�� کامل دستورات مدیریت کاربران، پوژ و تن��یمات لحظه‌ای سرور.',
+      desc: 'مرجع کامل دستورات مدیریت کاربران، پوژ و تنظیمات لحظه‌ای سرور.',
       icon: Terminal,
       href: '/docs/admin',
       color: 'text-green-500',
@@ -24,7 +25,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'سفارشی‌سازی وب',
-      desc: 'نحوه تغییر ظاهر این ��ابط کاربری و تزریق آن به سرور MadMail.',
+      desc: 'نحوه تغییر ظاهر این رابط کاربری و تزریق آن به سرور MadMail.',
       icon: Code,
       href: '/docs/custom-html',
       color: 'text-purple-500',
@@ -87,13 +88,10 @@ export function DocsIndexPage() {
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <BookOpen className="w-6 h-6 text-primary" />
             <h3 className="font-bold">متن‌باز</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و امکان مشارکت در توسعه پروژه.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و ا��کان مشارکت در توسعه پروژه.</p>
           </div>
         </div>
       </div>
     </DocsLayout>
   );
-}
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ');
 }
