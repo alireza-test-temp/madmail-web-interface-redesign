@@ -4,12 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { BookOpen, Terminal, Code, Database, ChevronLeft, ShieldCheck, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 export function DocsIndexPage() {
   const sections = [
     {
       title: 'راهنمای عمومی',
-      desc: 'آشنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سه��یه‌بندی فضا.',
+      desc: 'آشنایی با قابلیت‌های MadMail، نحوه کارکرد JIT و سهمیه‌بندی فضا.',
       icon: BookOpen,
       href: '/docs/general',
       color: 'text-blue-500',
@@ -17,7 +16,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'پنل مدیریت (CLI)',
-      desc: 'مرجع کامل دستورات مدیریت کاربران، پروژه‌ها و تنظیمات لحظه‌ای سرور.',
+      desc: 'مرج�� کامل دستورات مدیریت کاربران، پوژ و تن��یمات لحظه‌ای سرور.',
       icon: Terminal,
       href: '/docs/admin',
       color: 'text-green-500',
@@ -25,7 +24,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'سفارشی‌سازی وب',
-      desc: 'نحوه تغییر ظاهر این ��ابط کاربری و تزریق فایل‌های آن به سرور MadMail.',
+      desc: 'نحوه تغییر ظاهر این ��ابط کاربری و تزریق آن به سرور MadMail.',
       icon: Code,
       href: '/docs/custom-html',
       color: 'text-purple-500',
@@ -33,7 +32,7 @@ export function DocsIndexPage() {
     },
     {
       title: 'تنظیمات پایگاه داده',
-      desc: 'پیکربندی SQLite، PostgreSQL و MySQL برای ذخیره‌سازی دائمی ا��لاعات.',
+      desc: 'پیکربندی SQLite، PostgreSQL و MySQL بای ذخیره‌سازی دائمی.',
       icon: Database,
       href: '/docs/database',
       color: 'text-amber-500',
@@ -46,7 +45,7 @@ export function DocsIndexPage() {
         <header className="max-w-3xl space-y-4">
           <h1 className="text-4xl md:text-5xl font-black text-foreground">مرکز دانش <span className="text-primary">MadMail</span></h1>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            همه چیز در مورد راه‌اندازی، مدیریت و شخصی‌سازی سرویس پیام‌رسان دلتا‌چت شما در یک جا جمع شده است.
+            همه چیز درباره راه‌اندازی، مدیریت و شخصی‌سازی سرویس پیام‌رسان دلتا‌چت شما در یک جا.
           </p>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -78,20 +77,23 @@ export function DocsIndexPage() {
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <ShieldCheck className="w-6 h-6 text-primary" />
             <h3 className="font-bold">امنیت بومی</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض برای حداکثر امنیت ارتباطات.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">استفاده از Autocrypt و PGP به صورت پیش‌فرض بای حداکثر امنیت.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <Zap className="w-6 h-6 text-primary" />
             <h3 className="font-bold">راه‌اندازی آنی</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک دستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور و شبکه.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">نصب و اجرا با یک دستور بدون نیاز به پیکربندی‌های پیچیده وب‌سرور.</p>
           </div>
           <div className="p-6 rounded-2xl bg-muted/30 border space-y-3">
             <BookOpen className="w-6 h-6 text-primary" />
-            <h3 className="font-bold">امکان مشارکت</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و ��مکان مشارکت در توسعه پروژه برای تمام توسعه‌دهندگان.</p>
+            <h3 className="font-bold">متن‌باز</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">شفافیت کامل در کدها و امکان مشارکت در توسعه پروژه.</p>
           </div>
         </div>
       </div>
     </DocsLayout>
   );
+}
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(' ');
 }

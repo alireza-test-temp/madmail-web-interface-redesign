@@ -10,10 +10,10 @@ export function AdminDocsPage() {
     { cmd: './madmail user add user@domain pass', desc: 'ساخت دستی یک حساب کاربری جدید.' },
     { cmd: './madmail quota set user@domain 500MB', desc: 'تغییر سهمیه فضای دیسک برای یک کاربر خاص.' },
     { cmd: './madmail reg open', desc: 'باز کردن ثبت‌نام عمومی برای همه.' },
-    { cmd: './madmail reg close', desc: 'بستن ثبت‌نام (فقط مدیریت ��ی‌تواند کاربر بسازد).' },
-    { cmd: './madmail jit on', desc: 'فعال‌سازی تولید حساب آنی (JIT).' },
+    { cmd: './madmail reg close', desc: 'بستن ثبت‌نام (فقط مدیریت می‌تواند کاربر بسازد).' },
+    { cmd: './madmail jit on', desc: 'فعال‌سازی تولید حساب ��نی (JIT).' },
     { cmd: './madmail turn on', desc: 'فعال‌سازی سرور TURN برای تماس‌های تصویری/صوتی بهتر.' },
-    { cmd: './madmail stealth on', desc: 'حالت مخفی؛ سرور به درخو��ست‌های پینگ پاسخ نمی‌دهد.' },
+    { cmd: './madmail stealth on', desc: 'حالت مخفی؛ سرور ��ه درخواست‌های پینگ پاسخ نمی‌دهد.' },
     { cmd: './madmail purge all', desc: 'پاکسازی تمامی پیام‌های منقضی شده از دیتابیس.' },
   ];
   const handleCopy = async (text: string, idx: number) => {
@@ -41,9 +41,9 @@ export function AdminDocsPage() {
                     {item.cmd}
                   </code>
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
+                <Button 
+                  variant="outline" 
+                  size="sm" 
                   className="shrink-0 gap-2"
                   onClick={() => handleCopy(item.cmd, i)}
                 >
@@ -57,7 +57,7 @@ export function AdminDocsPage() {
         <div className="p-6 bg-amber-500/5 border border-amber-500/20 rounded-2xl">
           <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-2">نکته مهم در مورد دسترسی</h3>
           <p className="text-sm text-amber-700/80 dark:text-amber-300/80 leading-relaxed">
-            تمامی این دستورات باید در پوشه‌ای که فایل اجرایی `madmail` قرار دارد اجرا شوند. اگر از Docker استفاده می‌کنید،
+            تمامی این دستورات باید در پوشه‌ای که فایل اجرایی `madmail` قرار ��ارد اجرا شوند. اگر از Docker استفاده می‌کنید، 
             باید ابتدا با دستور `docker exec` وارد کانتینر شوید.
           </p>
         </div>

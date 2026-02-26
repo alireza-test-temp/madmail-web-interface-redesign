@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Info, Home, Shield, Share2, Menu } from 'lucide-react';
+import { Info, Home, Shield, Share2, Menu, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,8 @@ export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'خانه', path: '/', icon: Home },
-    { name: 'اشتراک‌��ذاری', path: '/share', icon: Share2 },
+    { name: 'اشتراک‌گذا��ی', path: '/share', icon: Share2 },
+    { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
     { name: 'اطلاعات', path: '/info', icon: Info },
     { name: 'امنیت', path: '/security', icon: Shield },
   ];

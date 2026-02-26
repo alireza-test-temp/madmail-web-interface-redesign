@@ -1,7 +1,6 @@
 import '@/lib/errorReporter';
 import { enableMapSet } from "immer";
 enableMapSet();
-
 import { createRoot } from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -16,11 +15,22 @@ import { InfoPage } from '@/pages/InfoPage'
 import { SecurityPage } from '@/pages/SecurityPage'
 import { ShareContactPage } from '@/pages/ShareContactPage'
 import { ContactViewPage } from '@/pages/ContactViewPage'
+import { DeployPage } from '@/pages/DeployPage'
+import { DocsIndexPage } from '@/pages/DocsIndexPage'
+import { GeneralDocsPage } from '@/pages/docs/GeneralDocsPage'
+import { AdminDocsPage } from '@/pages/docs/AdminDocsPage'
+import { CustomHtmlDocsPage } from '@/pages/docs/CustomHtmlDocsPage'
+import { DatabaseDocsPage } from '@/pages/docs/DatabaseDocsPage'
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/deploy",
+    element: <DeployPage />,
     errorElement: <RouteErrorBoundary />,
   },
   {
@@ -36,6 +46,31 @@ const router = createBrowserRouter([
   {
     path: "/share",
     element: <ShareContactPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/docs",
+    element: <DocsIndexPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/docs/general",
+    element: <GeneralDocsPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/docs/admin",
+    element: <AdminDocsPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/docs/custom-html",
+    element: <CustomHtmlDocsPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/docs/database",
+    element: <DatabaseDocsPage />,
     errorElement: <RouteErrorBoundary />,
   },
   {
