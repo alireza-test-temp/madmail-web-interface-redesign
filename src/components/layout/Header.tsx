@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -15,7 +16,7 @@ export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'خانه', path: '/', icon: Home },
-    { name: 'اشتراک‌گذا��ی', path: '/share', icon: Share2 },
+    { name: 'اشتراک‌گذاری', path: '/share', icon: Share2 },
     { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
     { name: 'اطلاعات', path: '/info', icon: Info },
     { name: 'امنیت', path: '/security', icon: Shield },
@@ -60,6 +61,7 @@ export function Header() {
               <SheetContent side="right" className="w-[280px] sm:w-[350px]">
                 <SheetHeader className="text-right pb-6">
                   <SheetTitle className="text-primary text-xl font-bold">منوی MadMail</SheetTitle>
+                  <SheetDescription className='sr-only'>منوی ناوبری MadMail.</SheetDescription>
                 </SheetHeader>
                 <nav className="flex flex-col gap-2">
                   {navItems.map((item) => {
