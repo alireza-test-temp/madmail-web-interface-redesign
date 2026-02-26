@@ -2,11 +2,16 @@ import { Hono } from "hono";
 import type { Env } from './core-utils';
 import { UserEntity, ContactEntity } from "./entities";
 import { ok, bad, notFound } from './core-utils';
-function generateRandomString(length: number = 10): string {
+/**
+ * Secure random string generator for passwords and IDs
+ */
+function secureRandomString(length: number = 10): string {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
   let result = '';
   for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+    result += chars.charAt(array[i] % chars.length);
   }
   return result;
 }
@@ -14,7 +19,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   // ALIAS ROUTES FOR GO SPECIFICATION
   app.post('/new', async (c) => createUser(c));
   app.post('/share', async (c) => createShare(c));
-  app.get('/qr', async (c) => ok(c, { message: 'Use dclogin: protocol for QR' }));
+  app.get('/qr', async (c) => ok(c, { message: 'از پروتکل dclogin: برای نمایش QR کد استفاده کنید' }));
   // ORIGINAL API ROUTES
   app.get('/api/users', async (c) => {
     await UserEntity.ensureSeed(c.env);
@@ -31,9 +36,9 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
 }
 async function createUser(c: any) {
   const { name } = (await c.req.json()) as { name?: string };
-  const username = generateRandomString(8);
-  const password = generateRandomString(12);
-  const domain = "madmail.example.com";
+  const username = secureRandomString(8);
+  const password = secureRandomString(12);
+  const domain = "madmail.example.com"; // Consistent with madConfig simulation
   const account = await UserEntity.create(c.env, {
     id: crypto.randomUUID(),
     name: (name?.trim() || username),
@@ -47,12 +52,12 @@ async function createShare(c: any) {
   if (!url || !url.startsWith('https://i.delta.chat/#')) {
     return bad(c, 'لینک دعوت معتبر DeltaChat الزامی است');
   }
-  let slug = requestedSlug?.trim().toLowerCase() || generateRandomString(8);
+  let slug = requestedSlug?.trim().toLowerCase() || secureRandomString(8);
   slug = slug.replace(/[^a-z0-9-]/g, '');
-  if (slug.length < 3) slug = generateRandomString(8);
+  if (slug.length < 3) slug = secureRandomString(8);
   const existing = new ContactEntity(c.env, slug);
   if (await existing.exists()) {
-     slug = `${slug}-${generateRandomString(4)}`;
+     slug = `${slug}-${secureRandomString(4)}`;
   }
   const contact = await ContactEntity.create(c.env, {
     id: slug,
@@ -63,10 +68,13 @@ async function createShare(c: any) {
 }
 async function getContact(c: any) {
   const slug = c.req.param('slug');
-  if (slug === 'api' || slug === 'docs') return c.notFound();
+  // Avoid collision with system folders if hosted on root
+  if (slug === 'api' || slug === 'docs' || slug === 'info' || slug === 'share' || slug === 'security' || slug === 'deploy') {
+    return c.notFound();
+  }
   const contact = new ContactEntity(c.env, slug);
   if (!(await contact.exists())) {
-    return notFound(c, 'لینک یافت نشد');
+    return notFound(c, 'لینک اشتراک یافت نشد');
   }
   return ok(c, await contact.getState());
 }

@@ -44,10 +44,10 @@ export function ShareContactPage() {
       });
       setShareResult(data);
       setState('success');
-      toast.success('لینک اشتر��ک با موفقیت ایجاد شد');
+      toast.success('لینک اشتراک با م��فقیت ایجاد شد');
     } catch (err) {
       setState('idle');
-      toast.error('خ��ا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
+      toast.error('خطا در ایجاد لینک. احتمالاً این نام کوتاه قبلاً گرفته شده است.');
     }
   };
   const shareUrl = shareResult ? `${window.location.origin}/${shareResult.slug}` : '';
@@ -70,7 +70,7 @@ export function ShareContactPage() {
           >
             <Share2 className="w-8 h-8" />
           </motion.div>
-          <h1 className="text-3xl font-black">اشتراک ��ماس</h1>
+          <h1 className="text-3xl font-black">اشتراک تماس</h1>
           <p className="text-muted-foreground">لینک دعوت DeltaChat خود را به یک آدرس کوتاه و زیبا تبدیل کنید.</p>
         </header>
         <AnimatePresence mode="wait">
@@ -129,8 +129,8 @@ export function ShareContactPage() {
                       <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-dashed text-xs text-muted-foreground space-y-2">
                         <p className="font-bold flex items-center gap-1"><Info className="w-3 h-3" /> مراحل دریافت لینک:</p>
                         <ol className="list-decimal list-inside space-y-1 pr-1">
-                          <li>تنظیمات (Settings) → آیکون QR.</li>
-                          <li>گزینه اشتراک (Share) → کپی (Copy).</li>
+                          <li>وارد تنظیمات (Settings) شده و روی آیکون QR کلیک کنید.</li>
+                          <li>گزینه اشتراک (Share) را انتخاب کرده و آدرس را کپی (Copy) کنید.</li>
                         </ol>
                       </div>
                     </div>
@@ -151,7 +151,7 @@ export function ShareContactPage() {
                   <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center mx-auto mb-2">
                     <Check className="w-8 h-8" />
                   </div>
-                  <CardTitle className="text-2xl">لینک شما آماده است!</CardTitle>
+                  <CardTitle className="text-2xl">لینک شما آما��ه است!</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 p-4 bg-background rounded-xl border-2 border-green-500/20 shadow-inner overflow-hidden">
@@ -166,7 +166,7 @@ export function ShareContactPage() {
                 <CardFooter className="flex flex-col sm:flex-row gap-3">
                   <Button className="flex-1 h-12 gap-2" onClick={() => navigate(`/${shareResult?.slug}`)}>
                     <ExternalLink className="w-5 h-5" />
-                    مشاهده صفحه تماس
+                    مشاهده صفحه ��ماس
                   </Button>
                   <Button variant="outline" className="flex-1 h-12" onClick={() => setState('idle')}>
                     ایجاد لینک جدید

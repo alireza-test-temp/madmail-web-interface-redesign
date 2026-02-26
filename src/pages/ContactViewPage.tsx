@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, ExternalLink, Copy, Check, MessageSquare, ArrowRight } from 'lucide-react';
 import { api } from '@/lib/api-client';
@@ -39,6 +39,7 @@ export function ContactViewPage() {
       await navigator.clipboard.writeText(contact.url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      toast.success('کپی شد');
     } catch (err) {
       toast.error('خطا در کپی');
     }
@@ -64,7 +65,7 @@ export function ContactViewPage() {
             <h1 className="text-2xl font-bold">تماس یافت نشد</h1>
             <p className="text-muted-foreground">متأسفانه این لینک اشتراک وجود ندارد یا منقضی شده است.</p>
             <Button asChild className="w-full">
-              <Link to="/">بازگشت به خانه</Link>
+              <Link to="/">��ازگشت به خانه</Link>
             </Button>
           </CardContent>
         </Card>
@@ -81,7 +82,7 @@ export function ContactViewPage() {
           </div>
           <div className="space-y-2">
             <h1 className="text-3xl font-black">{contact.name || 'تماس ناشناس'}</h1>
-            <p className="text-muted-foreground">می���خواهید با این شخص در DeltaChat گفتگو کنید؟</p>
+            <p className="text-muted-foreground">می‌خواهید با این شخص در DeltaChat گفتگو کنید؟</p>
           </div>
           <Button asChild size="lg" className="h-16 px-8 text-xl font-bold gap-3 shadow-lg hover:scale-105 transition-transform">
             <a href={contact.url}>
@@ -110,7 +111,7 @@ export function ContactViewPage() {
               <div className="space-y-1">
                 <p className="font-bold text-amber-900 dark:text-amber-200">هشدار امنیتی</p>
                 <p className="text-sm text-amber-800/70 dark:text-amber-300/70 leading-relaxed">
-                  هویت این تماس را با اثر انگشت PGP تأیید کنید قبل از اعتماد کامل. هرگز تنها به صرف داشتن لینک اعتماد نکنید.
+                  هویت این تماس را با اثر انگشت PGP تأیید کنید قبل از اعتماد کامل. هرگز تنها به صرف داشتن لینک به کسی اعتماد نکنید.
                 </p>
               </div>
             </CardContent>

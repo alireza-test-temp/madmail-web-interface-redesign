@@ -25,7 +25,7 @@ export function DeployPage() {
   };
   return (
     <AppLayout>
-      <div className="max-w-3xl mx-auto space-y-10">
+      <div className="max-w-4xl mx-auto space-y-10">
         <header className="text-center space-y-4">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}

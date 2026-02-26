@@ -43,7 +43,7 @@ export function HomePage() {
     } catch (error) {
       console.error(error);
       setState('error');
-      toast.error('خطا در ایجاد ��ساب کاربری. لطفاً دوباره تلاش کنید.');
+      toast.error('خطا در ایجاد حساب کاربری. لطفاً دوباره تلاش کنید.');
     }
   }, []);
   useEffect(() => {
@@ -69,7 +69,7 @@ export function HomePage() {
   const handleOpenDeltaChat = async () => {
     const success = await tryOpenProtocol(loginLink);
     if (!success) {
-      toast.info('DeltaChat یافت نشد. لطفاً ابتدا برنامه ��ا نصب کنید.');
+      toast.info('DeltaChat یافت نشد. لطفاً ابتدا برنامه را نصب کنید.');
     }
   };
   return (
@@ -84,10 +84,10 @@ export function HomePage() {
             <Sparkles className="w-8 h-8" />
           </motion.div>
           <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl">
-            سروی�� پیام‌رسان <span className="text-primary">MadMail</span>
+            سرویس پیام‌رسان <span className="text-primary">MadMail</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            یک سرور DeltaChat امن و خصوصی برای ارتباطات آزاد شما. همین ��الا حساب کاربری خود را بسازید.
+            یک سرور DeltaChat امن و خصوصی برای ار��باطات آزاد شما. همین حالا حساب کاربری خود را بسازید.
           </p>
         </header>
         <AnimatePresence mode="wait">
@@ -113,7 +113,7 @@ export function HomePage() {
                     disabled={!madConfig.registrationOpen}
                   >
                     <UserPlus className="w-5 h-5" />
-                    ساخت اکانت در {madConfig.mailDomain}
+                    ساخت اکانت ��ر {madConfig.mailDomain}
                   </Button>
                 </CardFooter>
                 {state === 'error' && (
@@ -148,7 +148,7 @@ export function HomePage() {
               key="success"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-3xl grid md:grid-cols-2 gap-8 items-start px-4"
+              className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-start px-4"
             >
               {qrCodeSection}
               <div className="space-y-6">

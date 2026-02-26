@@ -16,14 +16,14 @@ export function Header() {
   const location = useLocation();
   const navItems = [
     { name: 'استاندارد اصلی', path: '/', icon: Home },
-    { name: 'اشتر��ک', path: '/share', icon: Share2 },
+    { name: 'اشتراک تماس', path: '/share', icon: Share2 },
     { name: 'راه‌اندازی', path: '/deploy', icon: Settings },
     { name: 'راهنما', path: '/info', icon: Info },
-    { name: 'ا��نیت', path: '/security', icon: Shield },
+    { name: 'امنیت', path: '/security', icon: Shield },
   ];
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="max-w-4xl mx-auto px-4 flex h-16 items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center space-x-2 space-x-reverse">
             <span className="font-bold text-xl tracking-tight text-primary">MadMail</span>
@@ -59,7 +59,7 @@ export function Header() {
               <SheetContent side="right" className="w-[280px] sm:w-[350px]">
                 <SheetHeader className="text-right pb-6">
                   <SheetTitle className="text-primary text-xl font-bold">منوی MadMail</SheetTitle>
-                  <SheetDescription className='sr-only'>منوی ��اوبری MadMail.</SheetDescription>
+                  <SheetDescription className="sr-only">منوی ناوبری MadMail برای دسترسی به بخش‌های مختلف.</SheetDescription>
                 </SheetHeader>
                 <nav className="flex flex-col gap-2">
                   {navItems.map((item) => {
